@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { seoText } from "../data/seo";
 
 export type Lang = "fa" | "en";
 /** A string in both languages. */
@@ -23,11 +24,6 @@ const LangContext = createContext<LangValue | null>(null);
 const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
 export const toFaDigits = (s: string) => s.replace(/\d/g, (d) => FA_DIGITS[Number(d)]);
 
-const TITLES: Record<Lang, string> = {
-  fa: "امیرحسین سدنی — توسعه‌دهنده نرم‌افزار · SDN",
-  en: "Amirhossein Sadani — Software Developer · SDN",
-};
-
 export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() =>
     document.documentElement.lang === "en" ? "en" : "fa",
@@ -46,7 +42,8 @@ export function LangProvider({ children }: { children: ReactNode }) {
     const el = document.documentElement;
     el.lang = lang;
     el.dir = lang === "fa" ? "rtl" : "ltr";
-    document.title = TITLES[lang];
+    document.title = seoText.title[lang];
+    document.querySelector('meta[name="description"]')?.setAttribute("content", seoText.description[lang]);
   }, [lang]);
 
   const value = useMemo<LangValue>(() => {
