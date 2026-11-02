@@ -38,15 +38,15 @@ export const ui = {
     hint: l("نشانگر را از روی حروف رد کن · کلیک کن تا پخش شوند", "Move your cursor through the letters · click to scatter them"),
     hintTouch: l("حروف را لمس کن تا پخش شوند", "Tap the letters to scatter them"),
     scroll: l("اسکرول", "Scroll"),
-    projects: l("پروژهٔ منتخب", "selected projects"),
+    projects: l("نمونه‌کارهای منتخب", "Selected work"),
     localTime: l("ساعت تهران", "Tehran time"),
   },
   work: {
     eyebrow: l("نمونه‌کارها", "Selected work"),
     title: [l("کارهای", "Things I"), l("منتخب", "built")] as [L, L],
     intro: l(
-      "چند نمونه از پروژه‌هایی که ساخته‌ام؛ از اپ و سایت تا ربات و هوش مصنوعی. برای دیدن جزئیات هر پروژه، بازش کن.",
-      "A selection of projects I've built — apps, websites, bots and AI. Open any of them for the details.",
+      "این‌ها فقط چند نمونه از کارهای من است. در کنارشان ده‌ها پروژهٔ دیگر هم ساخته‌ام؛ از سایت فروشگاهی و درگاه پرداخت تا ربات و اتوماسیون.",
+      "These are just a few examples of my work. Alongside them I've built dozens of other projects, from online stores and payment gateways to bots and automation.",
     ),
     explore: l("جزئیات پروژه", "View details"),
     stackLabel: l("ابزارها", "Stack"),
@@ -59,6 +59,7 @@ export const ui = {
     stack: l("ابزارها", "Stack"),
     overview: l("خلاصه", "Overview"),
     features: l("قابلیت‌ها", "Features"),
+    examples: l("چند نمونه", "A few examples"),
     underTheHood: l("جزئیات فنی", "Under the hood"),
     gallery: l("گالری", "Gallery"),
     next: l("پروژهٔ بعدی", "Next project"),
@@ -69,8 +70,8 @@ export const ui = {
   about: {
     eyebrow: l("دربارهٔ من", "About"),
     statement: l(
-      "من امیرحسین سدنی هستم و با نام SDN کار می‌کنم. بیشتر کارم ساخت اپ موبایل با Flutter، بک‌اند و سرور، ربات تلگرام و بله و پروژه‌های پایتون و هوش مصنوعی است. هر پروژه را از طراحی تا راه‌اندازی خودم انجام می‌دهم و برایم مهم است که نتیجه ساده، سریع و قابل اعتماد باشد.",
-      "I'm Amirhossein Sadani, and I work as SDN. Most of my work is Flutter apps, backends and servers, Telegram and Bale bots, and Python and AI projects. I handle each project myself from design to launch, and I care that the result is simple, fast and reliable.",
+      "من امیرحسین سدنی هستم و با نام SDN کار می‌کنم. تا امروز ده‌ها پروژه ساخته‌ام؛ از اپ موبایل با Flutter و سایت و سرور تا ربات تلگرام و بله و پروژه‌های پایتون و هوش مصنوعی. هر پروژه را از طراحی تا راه‌اندازی خودم انجام می‌دهم و برایم مهم است که نتیجه ساده، سریع و قابل اعتماد باشد.",
+      "I'm Amirhossein Sadani, and I work as SDN. I've built dozens of projects so far: Flutter apps, websites and servers, Telegram and Bale bots, and Python and AI work. I handle each one myself from design to launch, and I care that the result is simple, fast and reliable.",
     ),
     timeTitle: l("ساعت محلی", "Local time"),
     timeNote: l("تهران · ایران", "Tehran · Iran"),
@@ -95,8 +96,8 @@ export const ui = {
     eyebrow: l("خدمات", "Services"),
     title: [l("انجام", "What I"), l("پروژه", "build")] as [L, L],
     intro: l(
-      "در این زمینه‌ها پروژه انجام می‌دهم؛ از نمونهٔ اولیه تا نسخهٔ نهایی.",
-      "These are the kinds of projects I take on, from first prototype to final release.",
+      "در این زمینه‌ها پروژه انجام می‌دهم؛ از نمونهٔ اولیه تا نسخهٔ نهایی. اگر کارت در این فهرست نیست، باز هم بپرس.",
+      "These are the kinds of projects I take on, from first prototype to final release. If yours isn't on the list, ask anyway.",
     ),
     also: l("و همین‌طور", "Also"),
   },

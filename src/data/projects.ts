@@ -29,6 +29,8 @@ export type Project = {
   accent: { a: string; b: string };
   metrics: { value: string; label: L }[];
   features: { icon: FeatureIcon; title: L; text: L }[];
+  /** Heading over `features` when they are examples rather than features (default: "Features"). */
+  featuresTitle?: L;
   details: L[];
   gallery: Img[];
   links?: { label: L; url: string }[];
@@ -522,22 +524,26 @@ export const projects: Project[] = [
     id: "telegram-bots",
     index: "07",
     name: l("ربات‌های تلگرام", "Telegram Bots"),
-    kicker: l("مجموعهٔ ربات · پایتون و Pyrogram", "Bot collection · Python & Pyrogram"),
-    tagline: l("از ربات‌سازی که برای هر کاربر یک ربات آپلودر می‌سازد تا واترمارک ویدیو و ویرایش موزیک.", "From a bot builder that creates an uploader bot for each user to video watermarking and music editing."),
-    summary: l(
-      "شش ربات تلگرام که با پایتون و Pyrogram ساخته‌ام. هر کدام پنل مدیریت داخل خود ربات دارد و کارهای سنگین مثل پردازش ویدیو و صدا را با FFmpeg در پس‌زمینه انجام می‌دهد تا ربات برای بقیهٔ کاربرها کند نشود.",
-      "Six Telegram bots I built with Python and Pyrogram. Each has an admin panel inside the bot, and heavy work like video and audio processing runs in the background with FFmpeg, so the bot stays quick for everyone else.",
+    kicker: l("نمونه‌ای از ده‌ها ربات · پایتون", "A sample of dozens of bots · Python"),
+    tagline: l(
+      "ده‌ها ربات تلگرام و بله ساخته‌ام؛ برای فروش، مدیریت کانال، پردازش فایل و اتوماسیون. این‌ها چند نمونه‌اند.",
+      "I've built dozens of Telegram and Bale bots for sales, channel management, file processing and automation. Here are a few.",
     ),
-    year: "2024–2025",
+    summary: l(
+      "ساخت ربات بخش بزرگی از کار من است؛ از ربات فروش و پرداخت و مسابقهٔ کانال تا ربات‌سازی که برای هر کاربر یک ربات جدید راه می‌اندازد. ربات‌ها را با پایتون (Pyrogram و Bot API) می‌نویسم، پنل مدیریت را داخل خود ربات می‌گذارم و کارهای سنگین مثل پردازش ویدیو و صدا را در پس‌زمینه انجام می‌دهم تا ربات برای بقیهٔ کاربرها کند نشود.",
+      "Bots are a big part of my work, from sales and payment bots and channel contests to a builder that launches a new bot for each user. I write them in Python (Pyrogram and the Bot API), put the admin panel inside the bot, and run heavy jobs like video and audio processing in the background so the bot stays quick for everyone else.",
+    ),
+    year: "2024–2026",
     role: l("طراحی و توسعه", "Design & development"),
-    platform: l("تلگرام", "Telegram"),
-    stack: ["Python", "Pyrogram", "asyncio", "MySQL", "SQLite", "FFmpeg", "mutagen", "pydub"],
+    platform: l("تلگرام · بله", "Telegram · Bale"),
+    stack: ["Python", "Pyrogram", "Bot API", "asyncio", "MySQL", "SQLite", "FFmpeg", "mutagen"],
     accent: { a: "#2aabee", b: "#818cf8" },
     metrics: [
-      { value: "6", label: l("ربات در این مجموعه", "bots in this collection") },
-      { value: "5,000+", label: l("خط کد پایتون", "lines of Python") },
+      { value: "30+", label: l("ربات تلگرام و بله", "Telegram and Bale bots") },
+      { value: "5,000+", label: l("خط کد، فقط در شش نمونهٔ همین صفحه", "lines of code in just the six shown here") },
       { value: "FFmpeg", label: l("پردازش ویدیو و صدا در پس‌زمینه", "video & audio processing in the background") },
     ],
+    featuresTitle: l("چند نمونه", "A few examples"),
     features: [
       {
         icon: "bot",

@@ -3,7 +3,6 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { ArrowDown, ArrowUpRight, MousePointer2 } from "lucide-react";
 import { useLang } from "../../i18n/lang";
 import { profile } from "../../data/profile";
-import { projects } from "../../data/projects";
 import { ui } from "../../data/ui";
 import { ButtonLink, Magnetic, Rotator } from "../ui/primitives";
 import { cn, prefersReducedMotion, scrollToId, useMediaQuery, useNow } from "../../lib/hooks";
@@ -15,7 +14,7 @@ const PERSIAN: FontSpec = { family: "Vazirmatn Variable", weight: 900, dir: "rtl
 const fontFor = (word: string) => (/^[\x20-\x7E]+$/.test(word) ? LATIN : PERSIAN);
 
 export function Hero() {
-  const { t, lang, isFa, digits, num } = useLang();
+  const { t, lang, isFa, digits } = useLang();
   const rootRef = useRef<HTMLElement>(null);
   const slotRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -166,9 +165,7 @@ export function Hero() {
         style={{ opacity: fade }}
         className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto flex max-w-7xl items-end justify-between px-5 pb-7 font-mono text-[11.5px] uppercase tracking-label text-fog-500 will-change-[opacity] sm:px-8"
       >
-        <span className="hidden sm:inline">
-          {num(projects.length)} {t(ui.hero.projects)}
-        </span>
+        <span className="hidden sm:inline">{t(ui.hero.projects)}</span>
         <span className="flex flex-col items-center gap-2 max-sm:mx-auto">
           <span className="relative h-10 w-[22px] rounded-full border border-white/15">
             <span className={cn("absolute left-1/2 top-2 h-2 w-[3px] -translate-x-1/2 rounded-full bg-amber", !reduce && "animate-scroll-dot")} />

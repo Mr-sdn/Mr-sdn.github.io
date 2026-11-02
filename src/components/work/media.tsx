@@ -14,6 +14,8 @@ import {
   Search,
   ShoppingCart,
   Stamp,
+  Ticket,
+  Trophy,
   WifiOff,
 } from "lucide-react";
 import { useLang, type L } from "../../i18n/lang";
@@ -350,12 +352,14 @@ const BOT_CHATS: { name: L; preview: L; icon: ComponentType<{ className?: string
   { name: l("آگهی فریلنسری", "Freelance Ads"), preview: l("✳️ آگهی شما تکمیل شد و برای تأیید ادمین رفت", "✳️ Your ad is complete and waiting for approval"), icon: BriefcaseBusiness, color: "#fbbf24", time: "11:52" },
   { name: l("فایل‌منیجر", "File Manager"), preview: l("📁 ۳ فایل در دستهٔ «پروژه‌ها» ذخیره شد", "📁 3 files saved to “Projects”"), icon: FolderOpen, color: "#34d399", time: "11:20" },
   { name: l("ربات آشپزی", "Recipe Bot"), preview: l("🍲 قورمه‌سبزی · غذای اصلی", "🍲 Ghormeh sabzi · main dish"), icon: ChefHat, color: "#fb923c", time: "10:05" },
+  { name: l("فروش بلیت قرعه‌کشی", "Raffle Tickets"), preview: l("✅ پرداخت شما تأیید شد · ۳ بلیت", "✅ Your payment has been confirmed · 3 tickets"), icon: Ticket, color: "#f43f5e", time: "09:47", unread: 4 },
+  { name: l("مسابقهٔ بازدید کانال", "View Contest"), preview: l("🏆 کد شما: K7Q2XD · پستتان در کانال منتشر شد", "🏆 Your code: K7Q2XD · your post is live in the channel"), icon: Trophy, color: "#38bdf8", time: "09:12" },
 ];
 
 export function BotsMedia({ large = false }: { large?: boolean }) {
   const { t, digits, isFa } = useLang();
   // a new message lands in one chat after another
-  const { ref, step } = useLoop<HTMLDivElement>(BOT_CHATS.length, () => 2300);
+  const { ref, step } = useLoop<HTMLDivElement>(6, () => 2300); // only the rows that are fully in view
   return (
     <div ref={ref} className={cn("relative flex h-full min-h-[340px] w-full items-center justify-center overflow-hidden", large ? "p-3 sm:p-8" : "p-4 sm:p-5")}>
       <Glow className="h-[85%] w-[75%]" color="radial-gradient(closest-side, rgba(42,171,238,0.28), rgba(129,140,248,0.12) 60%, transparent)" />
@@ -405,6 +409,8 @@ export function BotsMedia({ large = false }: { large?: boolean }) {
             );
           })}
         </ul>
+        {/* the list keeps going: fade the last rows into the window colour (a gradient, not a mask) */}
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0e1621] to-transparent" />
       </div>
     </div>
   );
