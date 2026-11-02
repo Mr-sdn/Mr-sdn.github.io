@@ -177,7 +177,9 @@ export function LearnHubMedia({ large = false }: { large?: boolean }) {
     <div ref={ref} dir="ltr" className={cn("latin relative flex h-full min-h-[340px] w-full items-center justify-center overflow-hidden text-left", large ? "p-3 sm:p-8" : "p-4 sm:p-6")}>
       <Glow className="h-[85%] w-[80%]" color="radial-gradient(closest-side, rgba(244,63,94,0.26), rgba(251,191,36,0.1) 60%, transparent)" />
 
-      <div className={cn("relative w-full overflow-hidden rounded-2xl bg-[#0b0b10] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/10", large ? "max-w-[860px]" : "max-w-[620px]")}>
+      {/* the checkout hangs off the browser's corner, so it is positioned against this wrapper */}
+      <div className={cn("relative w-full", large ? "max-w-[820px]" : "max-w-[580px]")}>
+      <div className="relative w-full overflow-hidden rounded-2xl bg-[#0b0b10] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/10">
         {/* browser chrome */}
         <div className="flex items-center gap-2 border-b border-white/[0.07] bg-white/[0.03] px-3 py-2">
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -227,8 +229,7 @@ export function LearnHubMedia({ large = false }: { large?: boolean }) {
         </div>
       </div>
 
-      {/* checkout, floating over the page */}
-      <div className={cn("absolute bottom-3 end-3 w-[min(64%,248px)] rounded-2xl bg-[#121219] p-3.5 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.95)] ring-1 ring-white/12", large && "sm:bottom-8 sm:end-8 sm:w-[280px] sm:p-4")}>
+      <div className={cn("absolute -bottom-3 -end-2 w-[min(58%,236px)] rounded-2xl bg-[#121219] p-3.5 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.95)] ring-1 ring-white/12 sm:-bottom-5 sm:-end-5", large && "sm:w-[270px] sm:p-4")}>
         <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-fog-500">Checkout · crypto</p>
         <dl className="mt-2.5 space-y-1 text-[11.5px]">
           <div className="flex justify-between text-fog-300"><dt>Subtotal</dt><dd>$68.00</dd></div>
@@ -256,6 +257,7 @@ export function LearnHubMedia({ large = false }: { large?: boolean }) {
         <p className={cn("mt-2 truncate font-mono text-[10px] transition-opacity duration-500", step === 2 ? "text-emerald-300/80 opacity-100" : "opacity-0")}>
           webhook · signature ok → enrollment
         </p>
+      </div>
       </div>
     </div>
   );
@@ -292,7 +294,7 @@ export function BaleChatMedia({ large = false }: { large?: boolean }) {
   return (
     <div ref={ref} className={cn("relative flex h-full min-h-[340px] w-full items-center justify-center overflow-hidden", large ? "p-3 sm:p-8" : "p-4 sm:p-5")}>
       <Glow className="h-[85%] w-[75%]" color="radial-gradient(closest-side, rgba(20,184,166,0.3), rgba(56,189,248,0.1) 60%, transparent)" />
-      <div dir="rtl" lang="fa" className={cn("font-fa relative flex h-full w-full flex-col overflow-hidden rounded-[26px] bg-[#0c1214] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/10", large ? "max-h-[600px] max-w-[400px]" : "max-h-[580px] max-w-[340px]")}>
+      <div dir="rtl" lang="fa" className={cn("font-fa relative flex h-full w-full flex-col overflow-hidden rounded-[26px] bg-[#0c1214] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/10", large ? "max-h-[580px] max-w-[400px]" : "max-h-[500px] max-w-[340px]")}>
         {/* header */}
         <div className="flex items-center gap-3 border-b border-white/[0.06] bg-[#0f1a1c] px-4 py-2.5">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[linear-gradient(135deg,#14b8a6,#0ea5e9)] text-white">
@@ -306,6 +308,7 @@ export function BaleChatMedia({ large = false }: { large?: boolean }) {
         </div>
         {/* messages */}
         <div className="flex min-h-0 flex-1 flex-col justify-end gap-1.5 overflow-hidden bg-[radial-gradient(120%_80%_at_50%_0%,rgba(20,184,166,0.07),transparent)] px-3 py-3">
+          <span className="mb-auto self-center rounded-full bg-white/[0.06] px-2.5 py-0.5 text-[10.5px] text-fog-400">امروز</span>
           {shown.map((m, i) => (
             <motion.div
               key={i}

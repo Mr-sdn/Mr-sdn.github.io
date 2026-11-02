@@ -115,7 +115,7 @@ function ReachCard({ className }: { className?: string }) {
       </Label>
       {telegram ? (
         <a href={telegram.url} target="_blank" rel="noreferrer noopener" className="latin relative mt-4 block font-display text-[1.7rem] font-semibold text-fog-50 transition-colors hover:text-[#7fd0ff]">
-          {telegram.handle ?? telegram.label}
+          <bdi dir="ltr">{telegram.handle ?? telegram.label}</bdi>
         </a>
       ) : (
         <a href={`mailto:${profile.email}`} className="latin relative mt-4 block font-display text-xl font-semibold text-fog-50">

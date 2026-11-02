@@ -201,7 +201,7 @@ export function Nav({ hidden }: { hidden?: boolean }) {
                   .map((s) => (
                     <a key={s.id} href={s.url} target="_blank" rel="noreferrer noopener" className="latin inline-flex items-center gap-2 font-mono text-sm text-fog-300">
                       <SocialIcon id={s.id} size={15} />
-                      {s.handle ?? s.label}
+                      <bdi dir="ltr">{s.handle ?? s.label}</bdi>
                     </a>
                   ))}
                 <a href={`mailto:${profile.email}`} className="latin font-mono text-sm text-fog-400">

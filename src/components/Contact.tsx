@@ -126,7 +126,7 @@ export function Contact() {
                     <span className="text-[#2AABEE]">
                       <SocialIcon id={s.id} size={16} />
                     </span>
-                    {s.handle ?? s.label}
+                    <bdi dir="ltr">{s.handle ?? s.label}</bdi>
                   </a>
                 ))}
               <a
