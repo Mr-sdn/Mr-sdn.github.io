@@ -16,7 +16,6 @@ STEP = sys.argv[3] if len(sys.argv) > 3 else "all"
 OUT = os.path.join(SITE, "public", "media")
 FF = (r"C:\Users\sdnn\AppData\Local\Microsoft\WinGet\Packages"
       r"\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-9.0.2-full_build\bin\ffmpeg.exe")
-FILM = r"D:\project\ai_video\eraeh_hoosh\ai_film.mp4"            # 4K final render
 JADOO_MASTER = os.path.join(SCRATCH, "jadoo_capture", "jadoo_master.mp4")
 JADOO_STILLS = os.path.join(SCRATCH, "jadoo_capture", "stills")
 HG = r"D:\project\applications\hellogap_app"
@@ -63,16 +62,6 @@ def images():
         for w in (1600, 800):
             p = d("jadoo", f"{name}-{w}.webp")
             webp(im, p, w, 80)
-            report(p)
-
-    print("Film stills (4K source)")
-    for t in (23, 71, 85, 101, 137, 157, 201, 217, 19, 56):
-        tmp = os.path.join(SCRATCH, "film", f"src_{t}.png")
-        ff("-ss", str(t), "-i", FILM, "-frames:v", "1", "-vf", "scale=1920:-1:flags=lanczos", tmp)
-        im = Image.open(tmp)
-        for w in (1600, 800):
-            p = d("film", f"t{t}-{w}.webp")
-            webp(im, p, w, 82)
             report(p)
 
     print("HelloGap")
@@ -149,17 +138,6 @@ def videos():
        "-tune", "film", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", p)
     report(p)
     print("  segment offsets:", offs, "total", acc)
-
-    print("Film loop + full film")
-    p = d("film", "loop.mp4")
-    ff("-ss", "55.5", "-i", FILM, "-t", "15", "-vf", "scale=1280:-2:flags=lanczos,fade=t=in:st=0:d=0.4,"
-       "fade=t=out:st=14.4:d=0.6", "-c:v", "libx264", "-preset", "slow", "-crf", "25", "-tune", "animation",
-       "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", p)
-    report(p)
-    p = d("film", "film-720p.mp4")
-    ff("-i", FILM, "-vf", "scale=1280:-2:flags=lanczos", "-c:v", "libx264", "-preset", "slow", "-crf", "26",
-       "-tune", "animation", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", p)
-    report(p)
 
 
 if STEP in ("images", "all"):
