@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowUp, Copy, Mail } from "lucide-react";
 import { useLang } from "../i18n/lang";
 import { ui } from "../data/ui";
-import { profile } from "../data/profile";
+import { liveSocials, profile } from "../data/profile";
 import { Reveal } from "./ui/primitives";
 import { SocialIcon } from "./ui/icons";
 import { cn } from "../lib/hooks";
@@ -39,7 +39,7 @@ export function Contact() {
     }
   };
 
-  const socials = profile.socials.filter((s) => s.url);
+  const socials = liveSocials();
 
   return (
     <section id="contact" className="relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-40">
@@ -62,7 +62,7 @@ export function Contact() {
           </h2>
         </Reveal>
 
-        {/* the prompt pill — the same shape as the prompt in the "One Sentence" film */}
+        {/* one line about the project → opens the visitor's email app with it */}
         <Reveal delay={0.12}>
           <form onSubmit={send} className="mx-auto mt-12 max-w-2xl">
             <motion.div
@@ -74,11 +74,11 @@ export function Contact() {
                 <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,181,71,0.55),transparent_70%)] blur-md" />
                 <span className="relative h-5 w-5 rounded-full bg-[radial-gradient(circle_at_35%_35%,#fff6df,var(--color-amber)_55%,#e07b12)] shadow-[0_0_24px_6px_rgba(255,181,71,0.55)]" />
               </span>
-              <label htmlFor="one-sentence" className="sr-only">
-                {t(ui.contact.title2)}
+              <label htmlFor="project-line" className="sr-only">
+                {t(ui.contact.inputLabel)}
               </label>
               <input
-                id="one-sentence"
+                id="project-line"
                 ref={inputRef}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -113,6 +113,22 @@ export function Contact() {
           <div className="mt-12 flex flex-col items-center gap-5">
             <p className="text-[13px] text-fog-500">{t(ui.contact.or)}</p>
             <div className="flex flex-wrap items-center justify-center gap-3">
+              {socials
+                .filter((s) => s.id === "telegram")
+                .map((s) => (
+                  <a
+                    key={s.id}
+                    href={s.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="latin inline-flex items-center gap-3 rounded-full border border-[#2AABEE]/40 bg-[#2AABEE]/10 px-5 py-3 font-mono text-[15px] text-fog-50 transition-colors hover:border-[#2AABEE]/70 hover:bg-[#2AABEE]/20"
+                  >
+                    <span className="text-[#2AABEE]">
+                      <SocialIcon id={s.id} size={16} />
+                    </span>
+                    {s.handle ?? s.label}
+                  </a>
+                ))}
               <a
                 href={`mailto:${profile.email}`}
                 className="latin inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 font-mono text-[15px] text-fog-100 transition-colors hover:border-white/25 hover:bg-white/[0.07]"
@@ -133,9 +149,9 @@ export function Contact() {
                 </AnimatePresence>
               </button>
             </div>
-            {socials.length > 0 && (
+            {socials.some((s) => s.id !== "telegram") && (
               <ul className="flex flex-wrap items-center justify-center gap-2">
-                {socials.map((s) => (
+                {socials.filter((s) => s.id !== "telegram").map((s) => (
                   <li key={s.id}>
                     <a
                       href={s.url}

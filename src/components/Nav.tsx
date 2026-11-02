@@ -3,14 +3,14 @@ import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useLang, type Lang } from "../i18n/lang";
 import { ui } from "../data/ui";
-import { profile } from "../data/profile";
-import { Monogram } from "./ui/icons";
+import { liveSocials, profile } from "../data/profile";
+import { Monogram, SocialIcon } from "./ui/icons";
 import { cn, scrollToId, useScrollLock } from "../lib/hooks";
 
 const LINKS = [
   { id: "work", label: ui.nav.work },
   { id: "about", label: ui.nav.about },
-  { id: "stack", label: ui.nav.stack },
+  { id: "services", label: ui.nav.services },
   { id: "contact", label: ui.nav.contact },
 ] as const;
 
@@ -195,7 +195,15 @@ export function Nav({ hidden }: { hidden?: boolean }) {
                   </a>
                 </motion.li>
               ))}
-              <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="mt-10">
+              <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="mt-10 flex flex-col items-start gap-3">
+                {liveSocials()
+                  .filter((s) => s.id === "telegram")
+                  .map((s) => (
+                    <a key={s.id} href={s.url} target="_blank" rel="noreferrer noopener" className="latin inline-flex items-center gap-2 font-mono text-sm text-fog-300">
+                      <SocialIcon id={s.id} size={15} />
+                      {s.handle ?? s.label}
+                    </a>
+                  ))}
                 <a href={`mailto:${profile.email}`} className="latin font-mono text-sm text-fog-400">
                   {profile.email}
                 </a>

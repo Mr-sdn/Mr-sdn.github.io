@@ -3,9 +3,9 @@ import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } f
 import { Check } from "lucide-react";
 import { useLang } from "../i18n/lang";
 import { ui } from "../data/ui";
-import { profile } from "../data/profile";
-import { media } from "../data/projects";
+import { liveSocials, profile } from "../data/profile";
 import { GlowCard, Reveal, SectionTitle } from "./ui/primitives";
+import { SocialIcon } from "./ui/icons";
 import { cn, useNow } from "../lib/hooks";
 
 function Word({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {
@@ -101,17 +101,33 @@ function ClockCard({ className }: { className?: string }) {
   );
 }
 
-function NowCard({ className }: { className?: string }) {
+function ReachCard({ className }: { className?: string }) {
   const { t } = useLang();
+  const telegram = liveSocials().find((s) => s.id === "telegram");
   return (
-    <Card className={cn("relative overflow-hidden", className)} accent="#a855f7">
-      <img src={media("hellogap/logo.webp")} alt="" aria-hidden className="pointer-events-none absolute -bottom-6 -end-6 w-36 opacity-25" />
+    <Card className={cn("relative overflow-hidden", className)} accent="#2AABEE">
+      <span aria-hidden className="pointer-events-none absolute -bottom-8 -end-6 text-[#2AABEE] opacity-[0.12]">
+        <SocialIcon id="telegram" size={150} />
+      </span>
       <Label>
         <span className="me-2 inline-block h-2 w-2 rounded-full bg-emerald-400 text-emerald-400 animate-pulse-dot" />
-        {t(ui.about.nowTitle)}
+        {t(ui.about.reachTitle)}
       </Label>
-      <p className="mt-4 font-display text-2xl font-semibold leading-snug-i18n text-fog-50">{t(ui.about.nowText)}</p>
-      <p className="mt-2 text-sm text-fog-400">{t(ui.about.nowNote)}</p>
+      {telegram ? (
+        <a href={telegram.url} target="_blank" rel="noreferrer noopener" className="latin relative mt-4 block font-display text-[1.7rem] font-semibold text-fog-50 transition-colors hover:text-[#7fd0ff]">
+          {telegram.handle ?? telegram.label}
+        </a>
+      ) : (
+        <a href={`mailto:${profile.email}`} className="latin relative mt-4 block font-display text-xl font-semibold text-fog-50">
+          {profile.email}
+        </a>
+      )}
+      <p className="relative mt-2 text-sm text-fog-400">
+        {t(ui.about.reachNote)} ·{" "}
+        <a href={`mailto:${profile.email}`} className="latin text-fog-300 hover:text-fog-50">
+          {profile.email}
+        </a>
+      </p>
     </Card>
   );
 }
@@ -197,7 +213,7 @@ export function About() {
             <ClockCard className="h-full" />
           </Reveal>
           <Reveal className="md:col-span-2" delay={0.08}>
-            <NowCard className="h-full" />
+            <ReachCard className="h-full" />
           </Reveal>
           <Reveal className="md:col-span-2" delay={0.16}>
             <PrinciplesCard className="h-full" />

@@ -4,29 +4,30 @@ import {
   ArrowLeft,
   ArrowUpRight,
   BookOpen,
+  Bot,
   Boxes,
+  BriefcaseBusiness,
   Camera,
   ChefHat,
-  Clock,
   Coins,
-  Cpu,
   Eye,
-  Film,
   FlaskConical,
+  FolderOpen,
   Gauge,
   Globe,
   Hand,
   Layers,
+  LifeBuoy,
   ListChecks,
   Lock,
   MessagesSquare,
   MousePointerClick,
   Music,
   ShieldCheck,
-  SlidersHorizontal,
   Sparkles,
+  Tag,
   Terminal as TerminalIcon,
-  Type,
+  UserRound,
   Video,
   Volume2,
   WifiOff,
@@ -55,11 +56,6 @@ const ICONS: Record<FeatureIcon, ComponentType<{ className?: string }>> = {
   volume: Volume2,
   camera: Camera,
   layers: Layers,
-  clock: Clock,
-  type: Type,
-  cpu: Cpu,
-  sliders: SlidersHorizontal,
-  film: Film,
   chef: ChefHat,
   list: ListChecks,
   eye: Eye,
@@ -71,6 +67,12 @@ const ICONS: Record<FeatureIcon, ComponentType<{ className?: string }>> = {
   lock: Lock,
   book: BookOpen,
   boxes: Boxes,
+  user: UserRound,
+  tag: Tag,
+  bot: Bot,
+  briefcase: BriefcaseBusiness,
+  folder: FolderOpen,
+  lifebuoy: LifeBuoy,
 };
 
 function H({ children }: { children: React.ReactNode }) {
@@ -273,14 +275,16 @@ export function CaseStudy({ project, onClose }: { project: Project; onClose: () 
               ))}
             </div>
             <div className="mt-10">
-              {p.id === "hellogap" && <HelloGapDiagram />}
-              {p.id === "ai-offline" && (
+              {p.id === "hellogap" ? (
+                <HelloGapDiagram />
+              ) : p.id === "ai-offline" ? (
                 <div className="grid gap-6">
                   <OfflineFlow />
                   <ConfigSnippet />
                 </div>
+              ) : (
+                <Pipeline id={p.id} />
               )}
-              {(p.id === "jadoo" || p.id === "ashpazino") && <Pipeline id={p.id} />}
             </div>
           </section>
 

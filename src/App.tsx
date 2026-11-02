@@ -9,7 +9,7 @@ import { Hero } from "./components/hero/Hero";
 import { Marquee } from "./components/Marquee";
 import { Work } from "./components/work/Work";
 import { About } from "./components/About";
-import { Stack } from "./components/Stack";
+import { Services } from "./components/Services";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 // overlays load on first use, keeping the first paint lighter
@@ -75,7 +75,7 @@ export default function App() {
         <Marquee />
         <Work />
         <About />
-        <Stack />
+        <Services />
         <Contact />
       </main>
       <div className="relative z-10">

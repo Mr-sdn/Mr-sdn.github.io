@@ -3,18 +3,19 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { ArrowDown, ArrowUpRight, MousePointer2 } from "lucide-react";
 import { useLang } from "../../i18n/lang";
 import { profile } from "../../data/profile";
+import { projects } from "../../data/projects";
 import { ui } from "../../data/ui";
 import { ButtonLink, Magnetic, Rotator } from "../ui/primitives";
 import { cn, prefersReducedMotion, scrollToId, useMediaQuery, useNow } from "../../lib/hooks";
 import { ParticleEngine, type FontSpec } from "./particleEngine";
 
-const FONTS: Record<"fa" | "en", FontSpec> = {
-  en: { family: "Bricolage Grotesque Variable", weight: 800, dir: "ltr", lineHeight: 0.9 },
-  fa: { family: "Vazirmatn Variable", weight: 900, dir: "rtl", lineHeight: 1.1 },
-};
+const LATIN: FontSpec = { family: "Bricolage Grotesque Variable", weight: 800, dir: "ltr", lineHeight: 0.9 };
+const PERSIAN: FontSpec = { family: "Vazirmatn Variable", weight: 900, dir: "rtl", lineHeight: 1.1 };
+/** The font follows the word's script, not the page language ("SDN" stays Latin in Persian too). */
+const fontFor = (word: string) => (/^[\x20-\x7E]+$/.test(word) ? LATIN : PERSIAN);
 
 export function Hero() {
-  const { t, lang, isFa, digits } = useLang();
+  const { t, lang, isFa, digits, num } = useLang();
   const rootRef = useRef<HTMLElement>(null);
   const slotRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -41,8 +42,10 @@ export function Hero() {
     };
   }, []);
 
+  // re-sent on every language switch: the same word re-forms with a little burst
   useEffect(() => {
-    engineRef.current?.setWord(t(profile.heroWord), FONTS[lang]);
+    const word = t(profile.heroWord);
+    engineRef.current?.setWord(word, fontFor(word));
   }, [lang, t]);
 
   // gentle parallax as the hero scrolls away
@@ -96,12 +99,10 @@ export function Hero() {
           </motion.div>
         )}
 
-        <h1 className="sr-only">
-          {t(profile.name)} — {t(profile.role)}
-        </h1>
+        <h1 className="sr-only">{t(ui.hero.h1)}</h1>
 
-        {/* the particles draw the name inside this slot */}
-        <div ref={slotRef} aria-hidden className="relative h-[clamp(150px,30vw,300px)] w-full max-w-6xl">
+        {/* the particles draw the word inside this slot (sized for a short word, and for short screens) */}
+        <div ref={slotRef} aria-hidden className="relative h-[clamp(150px,min(42vw,36svh),330px)] w-full max-w-6xl">
           {!webgl && (
             <div className="absolute inset-0 grid place-items-center">
               <span className="font-display text-[clamp(3rem,11vw,9.5rem)] font-extrabold leading-none tracking-display text-gradient">
@@ -162,7 +163,9 @@ export function Hero() {
         style={{ opacity: fade }}
         className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto flex max-w-7xl items-end justify-between px-5 pb-7 font-mono text-[11.5px] uppercase tracking-label text-fog-500 sm:px-8"
       >
-        <span className="hidden sm:inline">{t(ui.hero.projects)}</span>
+        <span className="hidden sm:inline">
+          {num(projects.length)} {t(ui.hero.projects)}
+        </span>
         <span className="flex flex-col items-center gap-2 max-sm:mx-auto">
           <span className="relative h-10 w-[22px] rounded-full border border-white/15">
             <span className={cn("absolute left-1/2 top-2 h-2 w-[3px] -translate-x-1/2 rounded-full bg-amber", !reduce && "animate-scroll-dot")} />

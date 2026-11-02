@@ -1,18 +1,23 @@
 import { useLang } from "../i18n/lang";
 import { ui } from "../data/ui";
-import { alsoTools, capabilityGroups } from "../data/stack";
+import { alsoTools, services } from "../data/stack";
 import { BrandIcon } from "./ui/icons";
 import { GlowCard, Reveal, SectionTitle } from "./ui/primitives";
 
-export function Stack() {
+export function Services() {
   const { t, digits } = useLang();
   return (
-    <section id="stack" className="relative py-28 sm:py-36">
+    <section id="services" className="relative py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionTitle index="03" eyebrow={ui.stack.eyebrow} title={ui.stack.title} />
+        <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+          <SectionTitle index="03" eyebrow={ui.services.eyebrow} title={ui.services.title} />
+          <Reveal delay={0.1}>
+            <p className="max-w-md text-[15.5px] leading-body text-fog-400 lg:mb-3 lg:ms-auto">{t(ui.services.intro)}</p>
+          </Reveal>
+        </div>
 
         <div className="mt-14 grid gap-4 md:grid-cols-2">
-          {capabilityGroups.map((g, i) => {
+          {services.map((g, i) => {
             const hero = g.tools.find((x) => x.icon);
             return (
               <Reveal key={g.key} delay={i * 0.07}>
@@ -22,7 +27,7 @@ export function Stack() {
                       icon={hero.icon}
                       size={190}
                       color={g.accent}
-                      className="pointer-events-none absolute -bottom-10 -end-8 opacity-[0.06] transition-all duration-700 group-hover:-rotate-6 group-hover:opacity-[0.12]"
+                      className="pointer-events-none absolute -bottom-10 -end-8 opacity-[0.06] transition-[opacity,transform] duration-700 group-hover:-rotate-6 group-hover:opacity-[0.12]"
                     />
                   )}
                   <div className="flex items-center gap-3">
@@ -51,7 +56,7 @@ export function Stack() {
 
         <Reveal delay={0.1}>
           <div className="mt-8 flex flex-wrap items-center gap-3 text-fog-400">
-            <span className="font-mono text-xs uppercase tracking-label text-fog-500">{t(ui.stack.also)}</span>
+            <span className="font-mono text-xs uppercase tracking-label text-fog-500">{t(ui.services.also)}</span>
             {alsoTools.map((tool) => (
               <span key={tool.name} className="latin inline-flex items-center gap-2 text-[14px] text-fog-300">
                 {tool.icon && <BrandIcon icon={tool.icon} size={14} color={tool.color} />}
