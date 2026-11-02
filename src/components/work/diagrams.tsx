@@ -19,6 +19,38 @@ export const pipelines: Partial<Record<ProjectId, { title: L; steps: { k: string
       { k: "Numba + Synth", v: l("نور، درخشش، صدا", "light, bloom, audio") },
     ],
   },
+  learnhub: {
+    title: l("مسیر یک خرید", "The path of a purchase"),
+    steps: [
+      { k: "Cart", v: l("سبد خرید · کد تخفیف", "cart · coupon") },
+      { k: "Order", v: l("سفارش و مبلغ نهایی", "order and final total") },
+      { k: "Heleket", v: l("فاکتور رمزارز", "crypto invoice") },
+      { k: "Webhook", v: l("بررسی امضا · لاگ", "signature check · log") },
+      { k: "Enrollment", v: l("دسترسی به درس‌ها", "access to the lessons") },
+      { k: "Notify", v: l("اعلان و ایمیل", "notification & email") },
+    ],
+  },
+  "bale-chat": {
+    title: l("از جستجو تا گفتگو", "From search to chat"),
+    steps: [
+      { k: "Profile", v: l("جنسیت · سن · استان · شهر", "gender · age · province · city") },
+      { k: "Search pool", v: l("بررسی هر ۵ ثانیه", "checked every 5 s") },
+      { k: "Match", v: l("فیلتر و کسر سکه", "filters & coin cost") },
+      { k: "Relay", v: l("متن · عکس · ویس · فایل", "text · photo · voice · file") },
+      { k: "After chat", v: l("گزارش یا چت دوباره", "report or chat again") },
+    ],
+  },
+  "telegram-bots": {
+    title: l("ربات‌ساز آپلودر", "The uploader bot builder"),
+    steps: [
+      { k: "/start", v: l("ساخت ربات جدید", "create a new bot") },
+      { k: "Token", v: l("توکن از BotFather", "token from BotFather") },
+      { k: "run_bot()", v: l("ربات همان لحظه روشن می‌شود", "the bot goes live at once") },
+      { k: "MySQL", v: l("جدول جدا برای هر کاربر", "a table per user") },
+      { k: "Upload", v: l("تکی یا گروهی", "single or batch") },
+      { k: "Link", v: l("لینک یکتای هر فایل", "a unique link per file") },
+    ],
+  },
   ashpazino: {
     title: l("از قفسه تا قابلمه", "From shelf to pot"),
     steps: [

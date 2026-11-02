@@ -4,7 +4,7 @@ const l = (fa: string, en: string): L => ({ fa, en });
 // `import.meta.env` is missing when the build reads this file in Node (see vite.config.ts)
 export const media = (p: string) => `${import.meta.env?.BASE_URL ?? "./"}media/${p}`;
 
-export type ProjectId = "hellogap" | "jadoo" | "ashpazino" | "ai-offline";
+export type ProjectId = "hellogap" | "jadoo" | "learnhub" | "ashpazino" | "bale-chat" | "ai-offline" | "telegram-bots";
 
 export type FeatureIcon =
   | "zap" | "video" | "messages" | "shield" | "coins" | "gauge"
@@ -240,10 +240,76 @@ export const projects: Project[] = [
     ],
   },
 
-  // ───────────────────────────────────────────── 03 Ashpazino
+  // ───────────────────────────────────────────── 03 LearnHub
+  {
+    id: "learnhub",
+    index: "03",
+    name: l("LearnHub", "LearnHub"),
+    kicker: l("سایت فروش دورهٔ آنلاین · Flask", "Online course platform · Flask"),
+    tagline: l("فروشگاه دورهٔ آموزشی با پرداخت رمزارز، کد تخفیف و پنل مدیریت کامل.", "A course store with crypto checkout, coupons and a full admin panel."),
+    summary: l(
+      "یک پلتفرم کامل فروش دورهٔ آنلاین. کاربر ثبت‌نام می‌کند، دوره را به سبد خرید اضافه می‌کند، با رمزارز پرداخت می‌کند و بلافاصله به درس‌ها دسترسی دارد. مدیر سایت دوره‌ها، فصل‌ها، درس‌ها، سفارش‌ها، کدهای تخفیف و تیکت‌های پشتیبانی را از یک پنل کنترل می‌کند.",
+      "A complete online course store. Students sign up, add courses to a cart, pay in crypto and get the lessons right away. The admin runs courses, modules, lessons, orders, coupons and support tickets from one panel.",
+    ),
+    year: "2026",
+    role: l("طراحی و توسعهٔ فول‌استک", "Full-stack design & development"),
+    platform: l("وب", "Web"),
+    stack: ["Python", "Flask", "SQLAlchemy", "Jinja2", "Bootstrap", "Flask-Limiter", "Heleket API", "Gunicorn"],
+    accent: { a: "#f43f5e", b: "#fbbf24" },
+    metrics: [
+      { value: "21", label: l("مدل داده؛ از دوره تا تیکت", "data models, from courses to tickets") },
+      { value: "90+", label: l("صفحه و مسیر API", "pages and API routes") },
+      { value: "0", label: l("کار دستی بعد از پرداخت", "manual steps after payment") },
+    ],
+    features: [
+      {
+        icon: "coins",
+        title: l("پرداخت با رمزارز", "Crypto checkout"),
+        text: l("اتصال به درگاه Heleket: صدور فاکتور، بررسی امضای وب‌هوک، پیگیری وضعیت پرداخت و بازگشت وجه.", "Heleket gateway integration: invoices, signed webhooks, payment status tracking and refunds."),
+      },
+      {
+        icon: "tag",
+        title: l("سبد خرید و کد تخفیف", "Cart & coupons"),
+        text: l("کد تخفیف درصدی یا مبلغی با حداقل خرید، سقف تخفیف، تاریخ اعتبار و محدودیت استفاده؛ حتی مخصوص یک دوره.", "Percentage or fixed coupons with a minimum order, a discount cap, validity dates and usage limits — even for a single course."),
+      },
+      {
+        icon: "book",
+        title: l("دوره، فصل و درس", "Courses, modules & lessons"),
+        text: l("ساختار سه‌سطحی با فایل‌های قابل دانلود، سؤالات متداول و نظر دانشجوها برای هر دوره.", "A three-level structure with downloadable files, FAQs and student reviews for every course."),
+      },
+      {
+        icon: "shield",
+        title: l("حساب کاربری امن", "Secure accounts"),
+        text: l("تأیید ایمیل با کد، بازیابی و تغییر رمز، تأیید تغییر ایمیل و محدودیت تعداد درخواست.", "Email verification codes, password reset and change, confirmed email changes and rate limiting."),
+      },
+      {
+        icon: "lifebuoy",
+        title: l("تیکت و اعلان", "Tickets & notifications"),
+        text: l("کاربر تیکت پشتیبانی ثبت می‌کند، مدیر جواب می‌دهد و هر دو طرف اعلان می‌گیرند.", "Students open support tickets, admins reply, and both sides get notified."),
+      },
+      {
+        icon: "gauge",
+        title: l("پنل مدیریت", "Admin panel"),
+        text: l("دوره‌ها، کاربران، سفارش‌ها، کوپن‌ها، نظرات، لاگ پرداخت‌ها و تنظیمات سایت در یک داشبورد.", "Courses, users, orders, coupons, reviews, payment logs and site settings in one dashboard."),
+      },
+    ],
+    details: [
+      l(
+        "بک‌اند با Flask و SQLAlchemy نوشته شده و ۲۱ مدل داده دارد؛ از کاربر و دوره تا سفارش، کوپن، تیکت و لاگ وب‌هوک. صفحه‌ها با Jinja2 و Bootstrap ساخته شده‌اند و نسخهٔ نهایی روی Gunicorn اجرا می‌شود.",
+        "The backend is Flask with SQLAlchemy and 21 data models, from users and courses to orders, coupons, tickets and webhook logs. Pages use Jinja2 and Bootstrap, and production runs on Gunicorn.",
+      ),
+      l(
+        "مسیر پرداخت: سفارش ساخته می‌شود، فاکتور Heleket صادر می‌شود و وقتی وب‌هوکی با امضای معتبر برسد، سفارش پرداخت‌شده ثبت و دانشجو در دوره ثبت‌نام می‌شود. همهٔ وب‌هوک‌ها برای بررسی بعدی ذخیره می‌شوند.",
+        "Payment flow: an order is created, a Heleket invoice is issued, and when a correctly signed webhook arrives the order is marked paid and the student is enrolled. Every webhook is stored for later review.",
+      ),
+    ],
+    gallery: [],
+  },
+
+  // ───────────────────────────────────────────── 04 Ashpazino
   {
     id: "ashpazino",
-    index: "03",
+    index: "04",
     name: l("آشپزینو", "Ashpazino"),
     kicker: l("اپ اندروید آفلاین · Flutter", "Offline Android app · Flutter"),
     tagline: l("بگو در آشپزخانه چه داری؛ می‌گوید چه بپزی.", "Tell it what's in your kitchen; it tells you what to cook."),
@@ -319,10 +385,76 @@ export const projects: Project[] = [
     links: [{ label: l("آشپزینو در مایکت", "Ashpazino on Myket"), url: "https://myket.ir/app/ir.ashpazino.app" }],
   },
 
-  // ───────────────────────────────────────────── 04 AI Offline
+  // ───────────────────────────────────────────── 05 Bale anonymous chat
+  {
+    id: "bale-chat",
+    index: "05",
+    name: l("چت ناشناس بله", "Bale Anonymous Chat"),
+    kicker: l("ربات پیام‌رسان بله · پایتون", "Bale messenger bot · Python"),
+    tagline: l("ربات چت ناشناس با جستجوی هم‌شهری، کیف پول سکه و پنل مدیریت.", "An anonymous chat bot with same-city matching, a coin wallet and an admin panel."),
+    summary: l(
+      "یک ربات چت ناشناس برای پیام‌رسان بله که بدون نصب برنامهٔ جدا کار می‌کند. کاربر پروفایل می‌سازد (جنسیت، سن، استان و شهر) و تصادفی یا با فیلتر جنسیت، هم‌استانی و هم‌شهری به یک ناشناس وصل می‌شود. پیام، عکس، ویس، ویدیو و فایل رد و بدل می‌شود، بدون اینکه هویت کسی معلوم شود.",
+      "An anonymous chat bot for the Bale messenger that works without installing anything. Users set up a profile (gender, age, province and city) and connect with a stranger at random or filtered by gender, province or city. Messages, photos, voice notes, videos and files go through without revealing anyone's identity.",
+    ),
+    year: "2026",
+    role: l("طراحی و توسعهٔ کامل", "Design & development"),
+    platform: l("پیام‌رسان بله", "Bale messenger"),
+    stack: ["Python", "Bale Bot API", "SQLite (WAL)", "Threading", "Bale Payments"],
+    accent: { a: "#14b8a6", b: "#38bdf8" },
+    metrics: [
+      { value: "31", label: l("استان و بیش از ۴۰۰ شهر برای جستجوی هم‌شهری", "provinces and 400+ cities for local matching") },
+      { value: "7", label: l("نوع جستجو: تصادفی، جنسیت، هم‌استانی، هم‌شهری", "search types: random, gender, province, city") },
+      { value: "2,900", label: l("خط کد پایتون", "lines of Python") },
+    ],
+    features: [
+      {
+        icon: "zap",
+        title: l("جفت‌شدن با فیلتر", "Filtered matching"),
+        text: l("صف جستجو هر چند ثانیه بررسی می‌شود و کاربرها بر اساس جنسیت، استان، شهر و در صورت تمایل سن نزدیک به هم وصل می‌شوند؛ اگر کسی پیدا نشود، جستجو بعد از دو دقیقه تمام می‌شود.", "The search pool is checked every few seconds and users are paired by gender, province, city and, if they like, similar age; with no match, the search ends after two minutes."),
+      },
+      {
+        icon: "messages",
+        title: l("گفتگوی ناشناس", "Anonymous conversations"),
+        text: l("پیام متنی، عکس، ویس، ویدیو و فایل بین دو نفر رد و بدل می‌شود؛ بعد از چت می‌شود دوباره به همان نفر درخواست داد.", "Text, photos, voice notes, videos and files are relayed between the two people, and after a chat you can ask the same person again."),
+      },
+      {
+        icon: "coins",
+        title: l("کیف پول سکه", "Coin wallet"),
+        text: l("جستجوی تصادفی رایگان است و جستجوی فیلتردار سکه می‌خواهد. سکه با پرداخت داخل خود بله خریده می‌شود و هر دعوت ۲۰ سکه هدیه دارد.", "Random search is free and filtered search costs coins. Coins are bought with Bale's in-app payments, and every invited friend earns 20."),
+      },
+      {
+        icon: "shield",
+        title: l("گزارش و مسدودسازی", "Reports & bans"),
+        text: l("گزارش با دلیل (آزار، اسپم، محتوای نامناسب، حساب جعلی) به کانال بررسی می‌رود و مدیر با یک دکمه کاربر را مسدود می‌کند. سقف ۲۰ پیام در دقیقه جلوی اسپم را می‌گیرد.", "Reports with a reason (harassment, spam, inappropriate content, fake account) go to a review channel, and an admin can ban with one tap. A 20-messages-a-minute cap stops spam."),
+      },
+      {
+        icon: "user",
+        title: l("پروفایل", "Profiles"),
+        text: l("اسم، سن، جنسیت، استان، شهر و عکس پروفایل؛ هر طرف می‌تواند پروفایل دیگری را ببیند.", "Name, age, gender, province, city and a profile photo; each side can view the other's profile."),
+      },
+      {
+        icon: "gauge",
+        title: l("پنل مدیریت", "Admin panel"),
+        text: l("آمار کاربرها، پیام همگانی، هدیهٔ سکه، مدیریت کانال‌های عضویت اجباری و خروجی CSV از کاربرها و مسدودها.", "User stats, broadcasts, coin gifts, required-channel management and CSV exports of users and bans."),
+      },
+    ],
+    details: [
+      l(
+        "ربات مستقیم با Bot API بله کار می‌کند؛ با یک اتصال HTTP مشترک که خطاهای شبکه را دوباره امتحان می‌کند و ۱۶ thread برای پردازش هم‌زمان پیام‌ها. مسیر هر کاربر (ثبت‌نام، جستجو، در چت، گزارش و...) یک ماشین حالت است.",
+        "The bot talks to Bale's Bot API directly, with a shared HTTP session that retries network errors and 16 worker threads for concurrent updates. Each user's flow (sign-up, searching, in chat, reporting…) is a state machine.",
+      ),
+      l(
+        "داده‌ها در SQLite با حالت WAL ذخیره می‌شوند. پیام همگانی با چند کارگر موازی و فاصلهٔ کوتاه بین ارسال‌ها فرستاده می‌شود تا از محدودیت‌های بله رد نشود.",
+        "Data lives in SQLite in WAL mode. Broadcasts go out through a few parallel workers with short gaps between sends, so they stay within Bale's rate limits.",
+      ),
+    ],
+    gallery: [],
+  },
+
+  // ───────────────────────────────────────────── 06 AI Offline
   {
     id: "ai-offline",
-    index: "04",
+    index: "06",
     name: l("هوش مصنوعی آفلاین", "AI Offline"),
     kicker: l("هوش مصنوعی محلی · ایجنت · ویندوز", "Local AI · agents · Windows"),
     tagline: l("دستیار برنامه‌نویسی شخصی که بدون اینترنت کار می‌کند.", "A private coding assistant that works without the internet."),
@@ -380,6 +512,72 @@ export const projects: Project[] = [
       l(
         "تنظیمات OpenCode فقط به Ollama محلی (127.0.0.1:11434) اجازه می‌دهد و کانتکست ۶۴ هزار توکنی دارد. فایل‌های نصب هم کنار پروژه هستند تا کل سیستم روی کامپیوتری بدون اینترنت دوباره راه بیفتد.",
         "The OpenCode config allows only the local Ollama endpoint (127.0.0.1:11434) with a 64K-token context, and the installers sit next to it, so the whole setup can be rebuilt on a machine with no connection at all.",
+      ),
+    ],
+    gallery: [],
+  },
+
+  // ───────────────────────────────────────────── 07 Telegram bots
+  {
+    id: "telegram-bots",
+    index: "07",
+    name: l("ربات‌های تلگرام", "Telegram Bots"),
+    kicker: l("مجموعهٔ ربات · پایتون و Pyrogram", "Bot collection · Python & Pyrogram"),
+    tagline: l("از ربات‌سازی که برای هر کاربر یک ربات آپلودر می‌سازد تا واترمارک ویدیو و ویرایش موزیک.", "From a bot builder that creates an uploader bot for each user to video watermarking and music editing."),
+    summary: l(
+      "شش ربات تلگرام که با پایتون و Pyrogram ساخته‌ام. هر کدام پنل مدیریت داخل خود ربات دارد و کارهای سنگین مثل پردازش ویدیو و صدا را با FFmpeg در پس‌زمینه انجام می‌دهد تا ربات برای بقیهٔ کاربرها کند نشود.",
+      "Six Telegram bots I built with Python and Pyrogram. Each has an admin panel inside the bot, and heavy work like video and audio processing runs in the background with FFmpeg, so the bot stays quick for everyone else.",
+    ),
+    year: "2024–2025",
+    role: l("طراحی و توسعه", "Design & development"),
+    platform: l("تلگرام", "Telegram"),
+    stack: ["Python", "Pyrogram", "asyncio", "MySQL", "SQLite", "FFmpeg", "mutagen", "pydub"],
+    accent: { a: "#2aabee", b: "#818cf8" },
+    metrics: [
+      { value: "6", label: l("ربات در این مجموعه", "bots in this collection") },
+      { value: "5,000+", label: l("خط کد پایتون", "lines of Python") },
+      { value: "FFmpeg", label: l("پردازش ویدیو و صدا در پس‌زمینه", "video & audio processing in the background") },
+    ],
+    features: [
+      {
+        icon: "bot",
+        title: l("ربات‌ساز آپلودر", "Uploader bot builder"),
+        text: l("کاربر توکن ربات خودش را می‌فرستد و ربات آپلودر اختصاصی‌اش همان لحظه روشن می‌شود؛ با ادمین‌ها، کانال عضویت اجباری، کانال تبلیغ و لینک یکتا برای هر فایل. فارسی و انگلیسی.", "Users send their own bot token and their uploader bot goes live on the spot, with its own admins, required channels, an ad channel and a unique link for every file. Persian and English."),
+      },
+      {
+        icon: "video",
+        title: l("واترمارک ویدیو", "Video watermark"),
+        text: l("متن یا لوگو روی ویدیو با افکت ساده، سایه‌دار یا هاشور. واترمارک هر چند فریم جایش را عوض می‌کند تا نشود آن را برید.", "Adds text or a logo to videos with plain, shadow or hatch styles. The mark jumps to a new spot every few frames, so it can't be cropped out."),
+      },
+      {
+        icon: "music",
+        title: l("ویرایشگر موزیک", "Music editor"),
+        text: l("اسم آهنگ، خواننده و کاور را عوض می‌کند و فایل را بین MP3، FLAC، WAV و OGG تبدیل می‌کند.", "Changes the title, artist and cover art, and converts files between MP3, FLAC, WAV and OGG."),
+      },
+      {
+        icon: "briefcase",
+        title: l("آگهی فریلنسری", "Freelance job board"),
+        text: l("ثبت آگهی پروژه، مدیریت آگهی‌های خود، قوانین و پشتیبانی؛ هر آگهی قبل از انتشار در کانال به تأیید ادمین می‌رسد.", "Post project ads, manage your own, read the rules or ask for help; every ad is approved by an admin before it reaches the channel."),
+      },
+      {
+        icon: "folder",
+        title: l("فایل‌منیجر", "File manager"),
+        text: l("فایل‌ها را در دسته‌های شخصی نگه می‌دارد تا هر وقت خواستی با یک لمس پس بگیری؛ فایل‌های موقت خودکار پاک می‌شوند.", "Keeps your files in personal folders so you can get them back in one tap; temporary files are cleaned up automatically."),
+      },
+      {
+        icon: "chef",
+        title: l("ربات آشپزی", "Recipe bot"),
+        text: l("دستور غذاها بر اساس دسته و نوع (اصلی، رژیمی، اقتصادی)، جستجو با اسم و فهرست غذاهای محبوب.", "Recipes by category and type (main, diet, budget), search by name and a favourites list."),
+      },
+    ],
+    details: [
+      l(
+        "ربات‌ساز روی یک ربات اصلی اجرا می‌شود: کاربر توکن ربات خودش را می‌دهد، ربات جدید در همان پروسه بالا می‌آید و برای هر کاربر یک جدول جدا در MySQL ساخته می‌شود. هر فایل آپلودشده یک لینک یکتا می‌گیرد.",
+        "The builder runs on one main bot: a user hands over a bot token, the new bot starts inside the same process, and each user gets a separate MySQL table. Every uploaded file gets a unique link.",
+      ),
+      l(
+        "کارهای سنگین مثل FFmpeg به‌صورت ناهمگام و در پروسهٔ جدا اجرا می‌شوند تا ربات هم‌زمان به بقیهٔ کاربرها جواب بدهد؛ فایل‌های موقت بعد از هر کار پاک می‌شوند.",
+        "Heavy jobs like FFmpeg run asynchronously in separate processes, so the bot keeps answering other users; temporary files are deleted after each job.",
       ),
     ],
     gallery: [],

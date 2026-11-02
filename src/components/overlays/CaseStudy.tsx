@@ -38,7 +38,7 @@ import { useLang } from "../../i18n/lang";
 import { projects, type FeatureIcon, type Project } from "../../data/projects";
 import { ui } from "../../data/ui";
 import { AnimatedValue, Chip } from "../ui/primitives";
-import { AshpazinoMedia, HelloGapMedia, JadooMedia, Terminal } from "../work/media";
+import { AshpazinoMedia, BaleChatMedia, BotsMedia, HelloGapMedia, JadooMedia, LearnHubMedia, Terminal } from "../work/media";
 import { ConfigSnippet, ContextMenuMock, HelloGapDiagram, OfflineFlow, Pipeline } from "../work/diagrams";
 import { useOverlays } from "./OverlayContext";
 import { cn } from "../../lib/hooks";
@@ -95,10 +95,28 @@ function CaseHero({ p }: { p: Project }) {
       );
     case "jadoo":
       return <JadooMedia large />;
+    case "learnhub":
+      return (
+        <div className={cn(frame, "h-[440px] sm:h-[600px]")}>
+          <LearnHubMedia large />
+        </div>
+      );
     case "ashpazino":
       return (
         <div className={cn(frame, "h-[460px] sm:h-[620px]")}>
           <AshpazinoMedia large />
+        </div>
+      );
+    case "bale-chat":
+      return (
+        <div className={cn(frame, "h-[520px] sm:h-[640px]")}>
+          <BaleChatMedia large />
+        </div>
+      );
+    case "telegram-bots":
+      return (
+        <div className={cn(frame, "h-[500px] sm:h-[580px]")}>
+          <BotsMedia large />
         </div>
       );
     default:
