@@ -2,9 +2,8 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useLang } from "../../i18n/lang";
-import { media, type Img } from "../../data/projects";
+import type { Img } from "../../data/projects";
 import { ui } from "../../data/ui";
-import { projects } from "../../data/projects";
 
 export function Lightbox({ images, index, onIndex, onClose }: { images: Img[]; index: number; onIndex: (i: number) => void; onClose: () => void }) {
   const { t, isFa } = useLang();
@@ -97,58 +96,6 @@ export function Lightbox({ images, index, onIndex, onClose }: { images: Img[]; i
       <p className="px-5 py-5 text-center text-[14px] text-fog-300" onClick={(e) => e.stopPropagation()}>
         {img.caption ? t(img.caption) : t(img.alt)}
       </p>
-    </motion.div>
-  );
-}
-
-export function FilmPlayer({ onClose }: { onClose: () => void }) {
-  const { t } = useLang();
-  const film = projects.find((p) => p.id === "one-sentence");
-  const closeRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    closeRef.current?.focus({ preventScroll: true });
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
-  return (
-    <motion.div
-      data-lightbox
-      role="dialog"
-      aria-modal="true"
-      aria-label={film ? t(film.name) : "Film"}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-black/94 p-4 backdrop-blur-xl sm:p-10"
-      onClick={onClose}
-    >
-      <button
-        ref={closeRef}
-        type="button"
-        onClick={onClose}
-        aria-label={t(ui.common.close)}
-        className="absolute end-4 top-4 grid h-11 w-11 place-items-center rounded-full bg-white/10 text-fog-50 ring-1 ring-white/15 hover:bg-white/20"
-      >
-        <X className="h-5 w-5" />
-      </button>
-      <motion.div
-        initial={{ scale: 0.96, y: 10 }}
-        animate={{ scale: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-6xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <video
-          className="aspect-video w-full rounded-2xl bg-black shadow-[0_40px_120px_-30px_rgba(255,181,71,0.35)]"
-          controls
-          autoPlay
-          playsInline
-          poster={media("film/t23-1600.webp")}
-          src={media("film/film-720p.mp4")}
-        />
-        {film?.credits && <p className="mt-4 text-center text-[13.5px] text-fog-400">{t(film.credits)}</p>}
-      </motion.div>
     </motion.div>
   );
 }

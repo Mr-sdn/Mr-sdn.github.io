@@ -14,7 +14,6 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 // overlays load on first use, keeping the first paint lighter
 const CaseStudy = lazy(() => import("./components/overlays/CaseStudy").then((m) => ({ default: m.CaseStudy })));
-const FilmPlayer = lazy(() => import("./components/overlays/Lightbox").then((m) => ({ default: m.FilmPlayer })));
 const Lightbox = lazy(() => import("./components/overlays/Lightbox").then((m) => ({ default: m.Lightbox })));
 
 function CursorGlow() {
@@ -47,18 +46,15 @@ export default function App() {
   const { t } = useLang();
   const route = useWorkRoute();
   const project = projectById(route.id);
-  const [film, setFilm] = useState(false);
   const [lightbox, setLightbox] = useState<{ images: Img[]; index: number } | null>(null);
 
   useScrollLock(!!project);
-  useScrollLock(film);
   useScrollLock(!!lightbox);
 
   const openRoute = route.open;
   const overlays = useMemo<Overlays>(
     () => ({
       openProject: (id: ProjectId) => openRoute(id),
-      openFilm: () => setFilm(true),
       openLightbox: (images, index) => setLightbox({ images, index }),
     }),
     [openRoute],
@@ -89,7 +85,6 @@ export default function App() {
 
       <Suspense fallback={null}>
         <AnimatePresence>{project && <CaseStudy key="case" project={project} onClose={route.close} />}</AnimatePresence>
-        <AnimatePresence>{film && <FilmPlayer key="film" onClose={() => setFilm(false)} />}</AnimatePresence>
         <AnimatePresence>
           {lightbox && (
             <Lightbox

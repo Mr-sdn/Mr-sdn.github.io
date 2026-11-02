@@ -44,7 +44,6 @@ export const ui = {
       "Five projects straight from my machine — run, rendered and captured for this page. Every image and video here is real output from the projects themselves.",
     ),
     explore: l("جزئیات پروژه", "Explore case study"),
-    watchFilm: l("تماشای فیلم با صدا", "Watch the film with sound"),
     stackLabel: l("ابزارها", "Stack"),
   },
   caseStudy: {

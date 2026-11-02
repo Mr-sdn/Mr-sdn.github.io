@@ -3,7 +3,7 @@ import type { L } from "../i18n/lang";
 const l = (fa: string, en: string): L => ({ fa, en });
 export const media = (p: string) => `${import.meta.env.BASE_URL}media/${p}`;
 
-export type ProjectId = "hellogap" | "jadoo" | "one-sentence" | "ashpazino" | "ai-offline";
+export type ProjectId = "hellogap" | "jadoo" | "ashpazino" | "ai-offline";
 
 export type FeatureIcon =
   | "zap" | "video" | "messages" | "shield" | "coins" | "gauge"
@@ -240,83 +240,10 @@ export const projects: Project[] = [
     ],
   },
 
-  // ───────────────────────────────────────────── 03 One Sentence
-  {
-    id: "one-sentence",
-    index: "03",
-    name: l("یک جمله", "One Sentence"),
-    kicker: l("فیلم مولد · پایتون", "Generative film · Python"),
-    tagline: l("فیلمی ۴K دربارهٔ هوش مصنوعی — هر فریم و هر نُتش با کد نوشته شده.", "A 4K film about AI — every frame and every note written in code."),
-    summary: l(
-      "یک فیلم موشن‌گرافیک چهاردقیقه‌ای برای درس هوش مصنوعی دانشگاه. هیچ نرم‌افزار تدوینی پشتش نیست: یک موتور پایتونی همهٔ ۷٬۲۰۰ فریم را می‌کشد — تایپوگرافی، ذرات، رابط‌ها — و موتور دیگری موسیقی‌اش را می‌سازد. صحنه‌ها روی ضرب موسیقی زمان‌بندی شده‌اند، موازی رندر می‌شوند و با بلندی استاندارد پخش آنلاین مستر می‌شوند.",
-      "A four-minute motion-graphics film for a university AI course. No editing software behind it: a Python engine draws all 7,200 frames — typography, particles, interfaces — and a second engine composes the music. Scenes are timed to the beat, rendered in parallel and mastered to streaming loudness.",
-    ),
-    year: "2026",
-    role: l("موتور، انیمیشن و صدا — تیم دونفره", "Engine, animation & sound — team of two"),
-    platform: l("فیلم ۴K · ارائهٔ دانشگاهی", "4K film · university talk"),
-    stack: ["Python", "NumPy", "Pillow", "multiprocessing", "FFmpeg", "x264", "DSP"],
-    accent: { a: "#ffb547", b: "#5ce1e6" },
-    metrics: [
-      { value: "4K", label: l("۳۸۴۰×۲۱۶۰ · ۳۰ فریم در ثانیه", "3840×2160 · 30 fps") },
-      { value: "7,200", label: l("فریم کشیده‌شده با کد", "frames drawn by code") },
-      { value: "16", label: l("صحنه روی ضرب ۱۰۰ BPM", "scenes on a 100 BPM grid") },
-    ],
-    features: [
-      {
-        icon: "clock",
-        title: l("زمان‌بندی روی ضرب", "Beat-locked timeline"),
-        text: l("صحنه‌ها با میزان موسیقی اندازه‌گیری می‌شوند — هر میزان ۲٫۴ ثانیه — تا هر برش و انیمیشن دقیقاً روی موسیقی بنشیند.", "Scenes are measured in bars — 2.4 s each at 100 BPM — so every cut and animation lands on the music."),
-      },
-      {
-        icon: "type",
-        title: l("تصویر با کد", "Code-drawn visuals"),
-        text: l("تایپوگرافی فارسی، میدان ذرات و ماکت رابط‌ها با NumPy و Pillow کشیده می‌شوند؛ با رندر دوبرابر برای لبه‌های تمیز.", "Persian typography, particle fields and interface mock-ups drawn with NumPy and Pillow, supersampled 2× for clean edges."),
-      },
-      {
-        icon: "music",
-        title: l("موسیقی سنتزشده", "Synthesized score"),
-        text: l("موسیقی متن و افکت‌ها در پایتون ساخته می‌شوند و رویدادهای صوتی با اتفاق‌های روی صفحه هماهنگ‌اند.", "The soundtrack and effects are generated in Python, with sound events synced to what happens on screen."),
-      },
-      {
-        icon: "cpu",
-        title: l("رندر موازی", "Parallel rendering"),
-        text: l("فریم‌ها بین چند پردازش — به اندازهٔ رم آزاد — تقسیم می‌شوند، مستقیم به x264 می‌روند و بدون انکود دوباره به هم می‌چسبند.", "Frames are split across processes sized to the free RAM, piped straight into x264 and joined without re-encoding."),
-      },
-      {
-        icon: "sliders",
-        title: l("مسترینگ استاندارد", "Mastered for playback"),
-        text: l("نرمال‌سازی دومرحله‌ای بلندی صدا با لیمیتر، تا در هر کلاس و پخش‌کننده‌ای درست شنیده شود.", "Two-pass loudness normalization with a limiter, so it sounds right in any lecture hall or player."),
-      },
-      {
-        icon: "film",
-        title: l("یک فرمان", "One command"),
-        text: l("فرمان python make.py تصویر را رندر می‌کند، موسیقی را می‌سازد و فایل نهایی ۴K را بیرون می‌دهد؛ با حالت پیش‌نویس و پیش‌نمایش برای آزمون سریع.", "python make.py renders the picture, builds the music and outputs the final 4K file — with draft and preview modes for quick iterations."),
-      },
-    ],
-    details: [
-      l(
-        "حرف فیلم یک ایده است — اینکه حالا یک جملهٔ خوب نوشته‌شده می‌تواند یک سایت، لوگو یا اپ بسازد — و خودش هم همین‌طور ساخته شد: یک موتور (engine.py) با اسپرایت، درخشش و منحنی‌های حرکت، یک فیلم‌نامهٔ شانزده‌صحنه‌ای (film.py)، یک سینت‌سایزر (audio.py) و یک ابزار ساخت (make.py).",
-        "The film argues one idea — that a single well-written sentence can now produce a website, a logo or an app — and it was built the same way: an engine (engine.py) with sprites, glows and easing curves, a sixteen-scene script (film.py), a synthesizer (audio.py) and a build tool (make.py).",
-      ),
-      l("فیلم در کلاس درس هوش مصنوعی دانشگاه ارائه شد.", "It was presented in a university course on artificial intelligence."),
-    ],
-    gallery: [
-      wide("film", "t23", l("عنوان فیلم: یک جمله", "Title card: One Sentence"), l("عنوان فیلم", "Title card")),
-      wide("film", "t71", l("یک جمله یک سایت کافه می‌سازد", "One sentence builds a café website"), l("یک جمله، یک سایت: «یک سایت برای کافه‌ام بساز»", "One sentence, one website: “build a site for my café”")),
-      wide("film", "t85", l("خروجی‌های مختلف هوش مصنوعی", "Different kinds of AI output"), l("و فقط سایت نیست: ویدیو، لوگو، اپ، کد، ترجمه، نمودار", "Not just websites: video, logos, apps, code, translation, charts")),
-      wide("film", "t101", l("نمودار زمان کارها", "A chart of task times"), l("کارهایی که روزها طول می‌کشید، حالا در چند دقیقه", "Tasks that took days now take minutes")),
-      wide("film", "t137", l("استفادهٔ درست از هوش مصنوعی", "Using AI well"), l("مهارت اصلی امروز: استفادهٔ درست از هوش مصنوعی", "Today's core skill: using AI well")),
-      wide("film", "t157", l("مقایسهٔ درخواست دقیق و مبهم", "A precise prompt versus a vague one"), l("همه‌چیز به درخواست تو بستگی دارد", "Everything depends on what you ask")),
-      wide("film", "t201", l("از ایده تا محصول", "From idea to product"), l("ایده ← محصول", "Idea → product")),
-      wide("film", "t217", l("می‌دانی چه بسازی؟", "Do you know what to build?"), l("سؤال این است: «می‌دانی چه بسازی؟»", "The real question: “do you know what to build?”")),
-    ],
-    credits: l("با همکاری محیا رضاپور · استاد درس: دکتر مریم جلالی", "Made with Mahya Rezapour · Course instructor: Dr. Maryam Jalali"),
-  },
-
-  // ───────────────────────────────────────────── 04 Ashpazino
+  // ───────────────────────────────────────────── 03 Ashpazino
   {
     id: "ashpazino",
-    index: "04",
+    index: "03",
     name: l("آشپزینو", "Ashpazino"),
     kicker: l("اپ آفلاین اندروید · Flutter", "Offline Android app · Flutter"),
     tagline: l("بگو در آشپزخانه چه داری؛ می‌گوید چه بپزی.", "Tell it what's in your kitchen; it tells you what to cook."),
@@ -392,10 +319,10 @@ export const projects: Project[] = [
     links: [{ label: l("آشپزینو در مایکت", "Ashpazino on Myket"), url: "https://myket.ir/app/ir.ashpazino.app" }],
   },
 
-  // ───────────────────────────────────────────── 05 AI Offline
+  // ───────────────────────────────────────────── 04 AI Offline
   {
     id: "ai-offline",
-    index: "05",
+    index: "04",
     name: l("هوش مصنوعی آفلاین", "AI Offline"),
     kicker: l("هوش مصنوعی محلی · ایجنت · ویندوز", "Local AI · agents · Windows"),
     tagline: l("دستیار برنامه‌نویسی خصوصی‌ای که به اینترنت نیاز ندارد.", "A private coding assistant that never needs the internet."),

@@ -34,7 +34,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useLang } from "../../i18n/lang";
-import { media, projects, type FeatureIcon, type Project } from "../../data/projects";
+import { projects, type FeatureIcon, type Project } from "../../data/projects";
 import { ui } from "../../data/ui";
 import { AnimatedValue, Chip } from "../ui/primitives";
 import { AshpazinoMedia, HelloGapMedia, JadooMedia, Terminal } from "../work/media";
@@ -83,7 +83,6 @@ function H({ children }: { children: React.ReactNode }) {
 }
 
 function CaseHero({ p }: { p: Project }) {
-  const { t } = useLang();
   const frame = "overflow-hidden rounded-[28px] border border-white/[0.08] bg-ink-900";
   switch (p.id) {
     case "hellogap":
@@ -94,20 +93,6 @@ function CaseHero({ p }: { p: Project }) {
       );
     case "jadoo":
       return <JadooMedia large />;
-    case "one-sentence":
-      return (
-        <div className={cn(frame, "aspect-video bg-black")}>
-          <video
-            className="h-full w-full"
-            controls
-            preload="none"
-            playsInline
-            poster={media("film/t23-1600.webp")}
-            src={media("film/film-720p.mp4")}
-            aria-label={t(p.name)}
-          />
-        </div>
-      );
     case "ashpazino":
       return (
         <div className={cn(frame, "h-[460px] sm:h-[620px]")}>
@@ -295,7 +280,7 @@ export function CaseStudy({ project, onClose }: { project: Project; onClose: () 
                   <ConfigSnippet />
                 </div>
               )}
-              {(p.id === "jadoo" || p.id === "one-sentence" || p.id === "ashpazino") && <Pipeline id={p.id} />}
+              {(p.id === "jadoo" || p.id === "ashpazino") && <Pipeline id={p.id} />}
             </div>
           </section>
 

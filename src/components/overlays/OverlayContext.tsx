@@ -3,7 +3,6 @@ import type { Img, ProjectId } from "../../data/projects";
 
 export type Overlays = {
   openProject: (id: ProjectId) => void;
-  openFilm: () => void;
   openLightbox: (images: Img[], index: number) => void;
 };
 

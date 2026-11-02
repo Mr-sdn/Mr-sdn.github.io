@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Play, WifiOff } from "lucide-react";
+import { WifiOff } from "lucide-react";
 import { useLang } from "../../i18n/lang";
 import { JADOO_REEL_LENGTH, jadooModes, media } from "../../data/projects";
-import { ui } from "../../data/ui";
 import { LazyVideo } from "../ui/primitives";
 import { cn, useInView } from "../../lib/hooks";
-import { useOverlays } from "../overlays/OverlayContext";
 
 /* ───────────────────────── HelloGap: a fan of store posters ───────────────────────── */
 export function HelloGapMedia({ large = false }: { large?: boolean }) {
@@ -122,38 +120,6 @@ export function JadooMedia({ large = false }: { large?: boolean }) {
           {t(jadooModes[active].text)}
         </motion.p>
       )}
-    </div>
-  );
-}
-
-/* ───────────────────────── One Sentence: looping excerpt + play with sound ───────────────────────── */
-export function FilmMedia({ large = false }: { large?: boolean }) {
-  const { t } = useLang();
-  const { openFilm } = useOverlays();
-  return (
-    <div className={cn("h-full w-full", large ? "" : "p-4 sm:p-5 lg:p-6")}>
-      <div className="group/film relative h-full min-h-[260px] overflow-hidden rounded-2xl bg-black ring-1 ring-white/10">
-        <LazyVideo
-          src={media("film/loop.mp4")}
-          poster={media("film/t56-1600.webp")}
-          className="h-full w-full object-cover"
-          label="One Sentence excerpt"
-        />
-        <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(5,5,7,0.85),transparent_45%)]" />
-        <button
-          type="button"
-          onClick={openFilm}
-          className="absolute bottom-4 start-4 inline-flex items-center gap-3 rounded-full bg-fog-50 py-2 pe-5 ps-2 text-[14px] font-semibold text-ink-950 shadow-[0_10px_40px_-8px_rgba(255,181,71,0.6)] transition-transform hover:scale-[1.03] active:scale-95"
-        >
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-[linear-gradient(135deg,var(--color-amber-soft),var(--color-amber))]">
-            <Play className="h-4 w-4 translate-x-[1px] fill-ink-950" />
-          </span>
-          {t(ui.work.watchFilm)}
-        </button>
-        <span className="latin pointer-events-none absolute bottom-6 end-4 font-mono text-[11px] uppercase tracking-[0.16em] text-fog-300">
-          4:00 · 4K · ♫ code
-        </span>
-      </div>
     </div>
   );
 }
@@ -298,8 +264,6 @@ export function ProjectMedia({ id, large = false }: { id: string; large?: boolea
       return <HelloGapMedia large={large} />;
     case "jadoo":
       return <JadooMedia large={large} />;
-    case "one-sentence":
-      return <FilmMedia large={large} />;
     case "ashpazino":
       return <AshpazinoMedia large={large} />;
     default:

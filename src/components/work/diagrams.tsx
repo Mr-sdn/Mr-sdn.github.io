@@ -19,17 +19,6 @@ export const pipelines: Partial<Record<ProjectId, { title: L; steps: { k: string
       { k: "Numba + Synth", v: l("نور، درخشش، صدا", "light, bloom, audio") },
     ],
   },
-  "one-sentence": {
-    title: l("خط تولید فیلم", "The film pipeline"),
-    steps: [
-      { k: "film.py", v: l("۱۶ صحنه روی ضرب", "16 scenes on the beat") },
-      { k: "engine.py", v: l("اسپرایت · درخشش · حرکت", "sprites · glow · easing") },
-      { k: "N processes", v: l("رندر موازی", "parallel render") },
-      { k: "x264", v: l("CRF 14 · 4K", "CRF 14 · 4K") },
-      { k: "audio.py", v: l("موسیقی سنتزشده", "synthesized score") },
-      { k: "loudnorm", v: l("مسترینگ دومرحله‌ای", "two-pass mastering") },
-    ],
-  },
   ashpazino: {
     title: l("از قفسه تا قابلمه", "From shelf to pot"),
     steps: [
