@@ -61,7 +61,7 @@ export function HelloGapMedia({ large = false }: { large?: boolean }) {
           <div
             key={p.src}
             className={cn(
-              "absolute aspect-[2/3] overflow-hidden rounded-[22px] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)] ring-1 ring-white/15 transition-transform duration-700 ease-[var(--ease-out-expo)]",
+              "absolute aspect-[2/3] overflow-hidden rounded-[22px] shadow-[0_22px_44px_-22px_rgba(0,0,0,0.9)] ring-1 ring-white/15 transition-transform duration-700 ease-[var(--ease-out-expo)]",
               large ? "w-[min(30%,260px)]" : "w-[min(34%,230px)]",
               side === 0 ? "z-20" : "z-10",
             )}
@@ -85,7 +85,7 @@ export function HelloGapMedia({ large = false }: { large?: boolean }) {
         src={media("hellogap/logo.webp")}
         alt=""
         aria-hidden
-        className="absolute bottom-4 left-1/2 z-30 w-16 -translate-x-1/2 drop-shadow-[0_0_24px_rgba(168,85,247,0.55)]"
+        className="absolute bottom-4 left-1/2 z-30 w-16 -translate-x-1/2"
       />
     </div>
   );
@@ -113,7 +113,7 @@ export function JadooMedia({ large = false }: { large?: boolean }) {
         <LazyVideo
           videoRef={videoRef}
           src={media("jadoo/reel.mp4")}
-          poster={media("jadoo/nebula-1600.webp")}
+          poster={media(large ? "jadoo/nebula-1600.webp" : "jadoo/nebula-800.webp")}
           onTime={setTime}
           className="h-full w-full object-cover"
           label="JADOO demo reel"
@@ -179,7 +179,7 @@ export function LearnHubMedia({ large = false }: { large?: boolean }) {
 
       {/* the checkout hangs off the browser's corner, so it is positioned against this wrapper */}
       <div className={cn("relative w-full", large ? "max-w-[820px]" : "max-w-[580px]")}>
-      <div className="relative w-full overflow-hidden rounded-2xl bg-[#0b0b10] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/10">
+      <div className="relative w-full overflow-hidden rounded-2xl bg-[#0b0b10] shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10">
         {/* browser chrome */}
         <div className="flex items-center gap-2 border-b border-white/[0.07] bg-white/[0.03] px-3 py-2">
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -229,7 +229,7 @@ export function LearnHubMedia({ large = false }: { large?: boolean }) {
         </div>
       </div>
 
-      <div className={cn("absolute -bottom-3 -end-2 w-[min(58%,236px)] rounded-2xl bg-[#121219] p-3.5 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.95)] ring-1 ring-white/12 sm:-bottom-5 sm:-end-5", large && "sm:w-[270px] sm:p-4")}>
+      <div className={cn("absolute -bottom-3 -end-2 w-[min(58%,236px)] rounded-2xl bg-[#121219] p-3.5 shadow-[0_18px_36px_-16px_rgba(0,0,0,0.9)] ring-1 ring-white/12 sm:-bottom-5 sm:-end-5", large && "sm:w-[270px] sm:p-4")}>
         <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-fog-500">Checkout · crypto</p>
         <dl className="mt-2.5 space-y-1 text-[11.5px]">
           <div className="flex justify-between text-fog-300"><dt>Subtotal</dt><dd>$68.00</dd></div>
@@ -294,7 +294,7 @@ export function BaleChatMedia({ large = false }: { large?: boolean }) {
   return (
     <div ref={ref} className={cn("relative flex h-full min-h-[340px] w-full items-center justify-center overflow-hidden", large ? "p-3 sm:p-8" : "p-4 sm:p-5")}>
       <Glow className="h-[85%] w-[75%]" color="radial-gradient(closest-side, rgba(20,184,166,0.3), rgba(56,189,248,0.1) 60%, transparent)" />
-      <div dir="rtl" lang="fa" className={cn("font-fa relative flex h-full w-full flex-col overflow-hidden rounded-[26px] bg-[#0c1214] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/10", large ? "max-h-[580px] max-w-[400px]" : "max-h-[500px] max-w-[340px]")}>
+      <div dir="rtl" lang="fa" className={cn("font-fa relative flex h-full w-full flex-col overflow-hidden rounded-[26px] bg-[#0c1214] shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10", large ? "max-h-[580px] max-w-[400px]" : "max-h-[500px] max-w-[340px]")}>
         {/* header */}
         <div className="flex items-center gap-3 border-b border-white/[0.06] bg-[#0f1a1c] px-4 py-2.5">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[linear-gradient(135deg,#14b8a6,#0ea5e9)] text-white">
@@ -359,7 +359,7 @@ export function BotsMedia({ large = false }: { large?: boolean }) {
   return (
     <div ref={ref} className={cn("relative flex h-full min-h-[340px] w-full items-center justify-center overflow-hidden", large ? "p-3 sm:p-8" : "p-4 sm:p-5")}>
       <Glow className="h-[85%] w-[75%]" color="radial-gradient(closest-side, rgba(42,171,238,0.28), rgba(129,140,248,0.12) 60%, transparent)" />
-      <div className={cn("relative flex max-h-full w-full flex-col overflow-hidden rounded-2xl bg-[#0e1621] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/10", large ? "max-w-[560px]" : "max-w-[440px]")}>
+      <div className={cn("relative flex max-h-full w-full flex-col overflow-hidden rounded-2xl bg-[#0e1621] shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10", large ? "max-w-[560px]" : "max-w-[440px]")}>
         <div className="flex items-center gap-2 border-b border-white/[0.06] bg-[#17212b] px-3 py-2.5">
           <span className="grid h-7 w-7 place-items-center rounded-full bg-[#2aabee] text-white">
             <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
@@ -456,7 +456,7 @@ export function Terminal({ className }: { className?: string }) {
   }, [inView, reduce]);
 
   return (
-    <div ref={ref} dir="ltr" className={cn("latin w-full overflow-hidden rounded-2xl bg-[#060807] text-left shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95)] ring-1 ring-white/10", className)}>
+    <div ref={ref} dir="ltr" className={cn("latin w-full overflow-hidden rounded-2xl bg-[#060807] text-left shadow-[0_24px_48px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10", className)}>
       <div className="flex items-center gap-2 border-b border-white/[0.07] bg-white/[0.03] px-4 py-2.5">
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
         <span className="h-3 w-3 rounded-full bg-[#febc2e]" />

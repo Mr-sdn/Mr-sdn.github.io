@@ -24,7 +24,7 @@ function ProjectCard({ p, total, stacked }: { p: Project; total: number; stacked
         "relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-ink-900",
         stacked ? "h-[min(calc(100svh-150px),660px)]" : "",
       )}
-      style={{ boxShadow: "0 40px 120px -40px rgba(0,0,0,0.95)" } as CSSProperties}
+      style={{ boxShadow: "0 28px 56px -28px rgba(0,0,0,0.9)" } as CSSProperties}
     >
       {/* accent light */}
       <div

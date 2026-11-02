@@ -9,7 +9,7 @@ import {
 } from "react";
 import { AnimatePresence, motion, useInView, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useLang, type L, type Text } from "../../i18n/lang";
-import { cn } from "../../lib/hooks";
+import { cn, isScrolling } from "../../lib/hooks";
 
 /* ───────── Magnetic: element leans toward the pointer ───────── */
 export function Magnetic({ children, strength = 0.28, className }: { children: ReactNode; strength?: number; className?: string }) {
@@ -252,13 +252,14 @@ export function AnimatedValue({ value, className }: { value: string; className?:
 }
 
 /* ───────── Lazy, muted, looping video that only plays while visible ───────── */
+// It starts once it is mostly on screen AND scrolling has paused: starting a video decoder stalls the GPU
+// for a moment, which used to land in the middle of a scroll as a visible stutter.
 export function LazyVideo({
   src,
   poster,
   className,
   videoRef,
   onTime,
-  rootMargin = "200px",
   label,
 }: {
   src: string;
@@ -266,31 +267,47 @@ export function LazyVideo({
   className?: string;
   videoRef?: React.RefObject<HTMLVideoElement | null>;
   onTime?: (t: number) => void;
-  rootMargin?: string;
   label?: string;
 }) {
   const local = useRef<HTMLVideoElement>(null);
   const ref = videoRef ?? local;
   const reduce = useReducedMotion();
   const [load, setLoad] = useState(false);
+  const visible = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || reduce) return;
+    let timer = 0;
+    const start = () => {
+      if (!visible.current) return;
+      if (isScrolling(250)) {
+        timer = window.setTimeout(start, 250);
+        return;
+      }
+      setLoad(true);
+      if (el.getAttribute("src")) el.play().catch(() => {});
+    };
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) {
-          setLoad(true);
-          if (!reduce) el.play().catch(() => {});
-        } else {
-          el.pause();
-        }
+        visible.current = e.intersectionRatio >= 0.35;
+        window.clearTimeout(timer);
+        if (visible.current) timer = window.setTimeout(start, 120);
+        else el.pause();
       },
-      { rootMargin },
+      { threshold: [0, 0.35, 0.7] },
     );
     io.observe(el);
-    return () => io.disconnect();
-  }, [ref, reduce, rootMargin, load]);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(timer);
+    };
+  }, [ref, reduce]);
+
+  // the source was just attached: play if it is still wanted
+  useEffect(() => {
+    if (load && visible.current && !reduce) ref.current?.play().catch(() => {});
+  }, [load, reduce, ref]);
 
   return (
     <video

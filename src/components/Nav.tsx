@@ -109,7 +109,7 @@ export function Nav({ hidden }: { hidden?: boolean }) {
           className={cn(
             "flex w-full max-w-[860px] items-center gap-1 rounded-full py-1.5 pe-1.5 ps-1.5 transition-[background,box-shadow,border-color] duration-500",
             scrolled
-              ? "glass shadow-[0_20px_60px_-25px_rgba(0,0,0,0.9)]"
+              ? "glass shadow-[0_12px_32px_-18px_rgba(0,0,0,0.9)]"
               : "border border-transparent bg-transparent",
           )}
         >

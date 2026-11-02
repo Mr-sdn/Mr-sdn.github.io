@@ -168,7 +168,7 @@ export function CaseStudy({ project, onClose }: { project: Project; onClose: () 
       transition={{ duration: 0.35 }}
       className="fixed inset-0 z-[70] bg-ink-950"
     >
-      <div ref={scrollRef} data-lenis-prevent className="h-full overflow-y-auto overscroll-contain">
+      <div ref={scrollRef} data-case-scroll className="h-full overflow-y-auto overscroll-contain">
         <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[70vh]" style={{ background: `radial-gradient(60% 70% at 50% 0%, ${p.accent.a}22, transparent 70%)` }} />
 
         {/* top bar */}

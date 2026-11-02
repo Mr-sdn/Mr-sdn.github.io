@@ -1,58 +1,30 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
-import Lenis from "lenis";
 
-let lenisInstance: Lenis | null = null;
-export const getLenis = () => lenisInstance;
+// Scrolling is the browser's own. A JS smooth-scroll library (Lenis) used to drive it from the main thread,
+// which added input delay and stuttered whenever the page was busy; native scrolling runs on the compositor.
 
 export function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/**
- * Smooth wheel scrolling (skipped for reduced motion; touch keeps native scrolling).
- * `lerp` follows the wheel closely — the old fixed 1.15 s `duration` made every scroll trail behind and feel laggy.
- */
-export function useSmoothScroll() {
-  useEffect(() => {
-    if (prefersReducedMotion()) return;
-    const lenis = new Lenis({ lerp: 0.14, smoothWheel: true, wheelMultiplier: 1 });
-    lenisInstance = lenis;
-    let raf = 0;
-    const loop = (time: number) => {
-      lenis.raf(time);
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
-    return () => {
-      cancelAnimationFrame(raf);
-      lenis.destroy();
-      lenisInstance = null;
-    };
-  }, []);
-}
-
 export function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
-  const lenis = getLenis();
-  if (lenis) lenis.scrollTo(el, { offset: id === "top" ? 0 : -20, duration: 1.1 });
-  else el.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
+  const top = id === "top" ? 0 : el.getBoundingClientRect().top + window.scrollY - 20;
+  window.scrollTo({ top, behavior: prefersReducedMotion() ? "auto" : "smooth" });
 }
 
 /** Lock page scroll while overlays are open (counted, so nested overlays work). */
 let locks = 0;
 export function lockScroll(locked: boolean) {
   locks = Math.max(0, locks + (locked ? 1 : -1));
-  const root = document.documentElement;
-  const lenis = getLenis();
-  if (locks > 0) {
-    root.classList.add("overlay-open");
-    lenis?.stop();
-  } else {
-    root.classList.remove("overlay-open");
-    lenis?.start();
-  }
+  document.documentElement.classList.toggle("overlay-open", locks > 0);
 }
+
+/** True while the page is being scrolled (and for `idleMs` after), for pausing work that would compete with it. */
+let lastScroll = -1e9;
+if (typeof window !== "undefined") window.addEventListener("scroll", () => (lastScroll = performance.now()), { passive: true, capture: true });
+export const isScrolling = (idleMs = 200) => performance.now() - lastScroll < idleMs;
 
 /** Hold a scroll lock for as long as `active` is true. */
 export function useScrollLock(active: boolean) {

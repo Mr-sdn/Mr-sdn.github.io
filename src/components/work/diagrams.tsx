@@ -213,7 +213,7 @@ export function ContextMenuMock({ className }: { className?: string }) {
     { icon: <Sparkles className="h-4 w-4 text-amber" />, text: "باز کردن Claude Code آفلاین اینجا" },
   ];
   return (
-    <div className={cn("rounded-2xl border border-white/10 bg-[#1c1c22]/95 p-1.5 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.9)] backdrop-blur", className)}>
+    <div className={cn("rounded-2xl border border-white/10 bg-[#1c1c22]/95 p-1.5 shadow-[0_18px_36px_-16px_rgba(0,0,0,0.9)]", className)}>
       <p className="px-3 pb-1 pt-2 text-[11px] text-fog-500">{t(l("منوی راست‌کلیک ویندوز", "Windows right-click menu"))}</p>
       {items.map((it, i) => (
         <div

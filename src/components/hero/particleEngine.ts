@@ -97,6 +97,8 @@ export class ParticleEngine {
   private canvasRect: DOMRect;
   /** The canvas moves with scroll (parallax); its rect is re-read only after a scroll or resize, never every frame. */
   private rectDirty = true;
+  /** While the page scrolls the simulation pauses: the last frame stays on screen and the GPU is free for scrolling. */
+  private lastScroll = -1e9;
 
   private ro: ResizeObserver;
   private io: IntersectionObserver;
@@ -258,6 +260,7 @@ export class ParticleEngine {
   };
   private onScroll = () => {
     this.rectDirty = true;
+    this.lastScroll = performance.now();
   };
 
   /* ---------------- layout & sampling ---------------- */
@@ -354,7 +357,9 @@ export class ParticleEngine {
     let lit = 0;
     for (let i = 3; i < data.length; i += 4) if (data[i] > 128) lit++;
     if (!lit) return;
-    const n = Math.max(2000, Math.min(MAX, Math.round(Math.sqrt(lit) * (this.coarse ? 32 : 46))));
+    // fewer points on phones and on machines with few cores: the physics runs on the main thread
+    const weak = (navigator.hardwareConcurrency || 8) <= 4;
+    const n = Math.max(2000, Math.min(MAX, Math.round(Math.sqrt(lit) * (this.coarse ? 30 : weak ? 34 : 44))));
     const step = Math.max(1, Math.sqrt(lit / (n * 1.25)));
     const cand: number[] = [];
     for (let yy = step / 2; yy < H; yy += step) {
@@ -450,6 +455,11 @@ export class ParticleEngine {
 
   private frame = (now: number) => {
     if (!this.running) return;
+    if (now - this.lastScroll < 220) {
+      this.last = now;
+      this.raf = requestAnimationFrame(this.frame);
+      return;
+    }
     const dt = Math.min(0.05, Math.max(0.001, (now - this.last) / 1000));
     this.last = now;
     this.time += dt;

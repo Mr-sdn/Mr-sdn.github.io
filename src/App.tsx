@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react";
 import { useLang } from "./i18n/lang";
 import { projectById, type Img, type ProjectId } from "./data/projects";
-import { useMediaQuery, useScrollLock, useSmoothScroll, useWorkRoute } from "./lib/hooks";
+import { useMediaQuery, useScrollLock, useWorkRoute } from "./lib/hooks";
 import { OverlayContext, type Overlays } from "./components/overlays/OverlayContext";
 import { Nav } from "./components/Nav";
 import { Hero } from "./components/hero/Hero";
@@ -36,13 +36,12 @@ function CursorGlow() {
     <motion.div
       aria-hidden
       style={{ x: sx, y: sy }}
-      className="pointer-events-none fixed left-0 top-0 z-0 h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(255,236,200,0.05),transparent)]"
+      className="pointer-events-none fixed left-0 top-0 z-0 h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(255,236,200,0.05),transparent)] will-change-transform"
     />
   );
 }
 
 export default function App() {
-  useSmoothScroll();
   const { t } = useLang();
   const route = useWorkRoute();
   const project = projectById(route.id);

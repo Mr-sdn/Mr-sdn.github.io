@@ -44,8 +44,10 @@ export function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-40">
       <div aria-hidden className="pointer-events-none absolute inset-0">
+        {/* grid faded by a gradient overlay (no CSS mask), then the warm light on top */}
+        <div className="absolute inset-0 bg-grid opacity-40" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_45%,transparent,var(--color-ink-950)_100%)]" />
         <div className="absolute left-1/2 top-[35%] h-[70vmax] w-[70vmax] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(255,181,71,0.12),transparent)]" />
-        <div className="absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_45%,#000,transparent)]" />
       </div>
 
       <div className="relative mx-auto max-w-5xl px-5 text-center sm:px-8">
@@ -68,10 +70,10 @@ export function Contact() {
             <motion.div
               animate={nudge && !reduce ? { x: [0, -8, 8, -5, 5, 0] } : { x: 0 }}
               transition={{ duration: 0.45 }}
-              className="group relative flex items-center gap-3 rounded-full border border-white/10 bg-ink-850/80 p-2 shadow-[0_30px_80px_-30px_rgba(255,181,71,0.35)] backdrop-blur transition-colors focus-within:border-amber/50"
+              className="group relative flex items-center gap-3 rounded-full border border-white/10 bg-ink-850 p-2 shadow-[0_18px_40px_-22px_rgba(255,181,71,0.4)] transition-colors focus-within:border-amber/50"
             >
               <span aria-hidden className="relative ms-1 grid h-11 w-11 shrink-0 place-items-center">
-                <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,181,71,0.55),transparent_70%)] blur-md" />
+                <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,181,71,0.45),transparent_70%)]" />
                 <span className="relative h-5 w-5 rounded-full bg-[radial-gradient(circle_at_35%_35%,#fff6df,var(--color-amber)_55%,#e07b12)] shadow-[0_0_24px_6px_rgba(255,181,71,0.55)]" />
               </span>
               <label htmlFor="project-line" className="sr-only">

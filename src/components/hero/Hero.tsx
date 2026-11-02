@@ -75,9 +75,12 @@ export function Hero() {
     <section ref={rootRef} id="top" className="relative isolate min-h-[100svh] overflow-hidden">
       {/* background */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-grid opacity-70 mask-radial" />
-        <div className="absolute -top-[20%] left-[8%] h-[60vmax] w-[60vmax] rounded-full bg-[radial-gradient(closest-side,rgba(92,225,230,0.16),transparent)] blur-2xl animate-aurora" />
-        <div className="absolute -bottom-[30%] right-[2%] h-[64vmax] w-[64vmax] rounded-full bg-[radial-gradient(closest-side,rgba(255,181,71,0.13),transparent)] blur-2xl animate-aurora [animation-delay:-9s]" />
+        {/* the grid fades out under a gradient (a CSS mask here cost a GPU stall on every load) */}
+        <div className="absolute inset-0 bg-grid opacity-70" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_40%,transparent_30%,var(--color-ink-950)_75%)]" />
+        {/* soft lights: wide gradients, no blur filter — an animated blur was re-run on the GPU every frame */}
+        <div className="absolute -top-[20%] left-[8%] h-[60vmax] w-[60vmax] rounded-full bg-[radial-gradient(closest-side,rgba(92,225,230,0.14),rgba(92,225,230,0.05)_55%,transparent)] animate-aurora" />
+        <div className="absolute -bottom-[30%] right-[2%] h-[64vmax] w-[64vmax] rounded-full bg-[radial-gradient(closest-side,rgba(255,181,71,0.12),rgba(255,181,71,0.04)_55%,transparent)] animate-aurora [animation-delay:-9s]" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-ink-950" />
       </div>
 
@@ -85,7 +88,7 @@ export function Hero() {
 
       <motion.div
         style={{ opacity: fade, y: lift }}
-        className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-5 pb-28 pt-28 text-center sm:px-8"
+        className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-5 pb-28 pt-28 text-center will-change-[transform,opacity] sm:px-8"
       >
         {/* availability (switch off in src/data/profile.ts) */}
         {profile.available && (
@@ -161,7 +164,7 @@ export function Hero() {
       {/* bottom bar */}
       <motion.div
         style={{ opacity: fade }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto flex max-w-7xl items-end justify-between px-5 pb-7 font-mono text-[11.5px] uppercase tracking-label text-fog-500 sm:px-8"
+        className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto flex max-w-7xl items-end justify-between px-5 pb-7 font-mono text-[11.5px] uppercase tracking-label text-fog-500 will-change-[opacity] sm:px-8"
       >
         <span className="hidden sm:inline">
           {num(projects.length)} {t(ui.hero.projects)}

@@ -6,9 +6,9 @@ function Row({ tools, reverse, duration }: { tools: Tool[]; reverse?: boolean; d
   const items = [...tools, ...tools];
   return (
     // the marquee always runs left-to-right in the DOM so the -50% loop is seamless in both languages
-    <div dir="ltr" className="group relative flex overflow-hidden mask-fade-x">
+    <div dir="ltr" className="group relative flex overflow-hidden">
       <ul
-        className={`flex w-max shrink-0 items-center gap-3 py-2 group-hover:[animation-play-state:paused] ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}
+        className={`flex w-max shrink-0 items-center gap-3 py-2 will-change-transform group-hover:[animation-play-state:paused] ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}
         style={{ "--marquee-duration": `${duration}s` } as CSSProperties}
       >
         {items.map((tool, i) => (
@@ -28,11 +28,14 @@ function Row({ tools, reverse, duration }: { tools: Tool[]; reverse?: boolean; d
 
 export function Marquee() {
   return (
-    <section aria-label="Tools" className="relative border-y border-white/[0.06] bg-ink-900/40 py-6">
+    <section aria-label="Tools" className="relative border-y border-white/[0.06] bg-[#07070a] py-6">
       <div className="flex flex-col gap-3">
         <Row tools={marqueeRows[0]} duration={46} />
         <Row tools={marqueeRows[1]} duration={52} reverse />
       </div>
+      {/* edge fades: gradient overlays in the section colour (a CSS mask here was a GPU cost on every frame) */}
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[12%] bg-gradient-to-r from-[#07070a] to-transparent" />
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-[12%] bg-gradient-to-l from-[#07070a] to-transparent" />
     </section>
   );
 }
