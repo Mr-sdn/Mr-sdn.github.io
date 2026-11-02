@@ -3,3 +3,7 @@ dist
 *.local
 .DS_Store
 Thumbs.db
+
+# local only: working notes and files taken off the site
+HANDOFF.md
+_archive/

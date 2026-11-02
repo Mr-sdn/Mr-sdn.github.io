@@ -21,11 +21,11 @@ export const profile = {
    * The build uses it for the canonical link, og:image, sitemap.xml and robots.txt.
    * Leave it empty until the site has a domain.
    */
-  siteUrl: "",
+  siteUrl: "https://mr-sdn.github.io",
   available: true,
   socials: [
     { id: "telegram", label: "Telegram", handle: "@amirhosseinsdn", url: "https://t.me/amirhosseinsdn" },
-    { id: "github", label: "GitHub", url: "" }, // e.g. https://github.com/your_username
+    { id: "github", label: "GitHub", handle: "Mr-sdn", url: "https://github.com/Mr-sdn" },
     { id: "linkedin", label: "LinkedIn", url: "" }, // e.g. https://www.linkedin.com/in/your_username
     { id: "instagram", label: "Instagram", url: "" }, // e.g. https://instagram.com/your_username
   ] as { id: SocialId; label: string; handle?: string; url: string }[],
