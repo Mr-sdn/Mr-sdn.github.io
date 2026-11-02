@@ -109,11 +109,12 @@ function StackItem({
   const last = i === n - 1;
   const scale = useTransform(progress, [start, 1], [1, last ? 1 : 1 - (n - 1 - i) * 0.04]);
   const dim = useTransform(progress, [start, next], [0, last ? 0 : 0.55]);
+  // each card is its own GPU layer: scaling and dimming then never repaint the card's content while scrolling
   return (
     <div className="sticky top-0 flex h-[100svh] items-center justify-center px-5 pt-[var(--nav-h)] sm:px-8">
-      <motion.div style={{ scale, top: i * 16 }} className="relative w-full max-w-7xl origin-top">
+      <motion.div style={{ scale, top: i * 16 }} className="relative w-full max-w-7xl origin-top will-change-transform">
         {children}
-        <motion.div aria-hidden style={{ opacity: dim }} className="pointer-events-none absolute inset-0 rounded-[28px] bg-ink-950" />
+        <motion.div aria-hidden style={{ opacity: dim }} className="pointer-events-none absolute inset-0 rounded-[28px] bg-ink-950 will-change-[opacity]" />
       </motion.div>
     </div>
   );

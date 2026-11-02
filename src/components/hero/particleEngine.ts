@@ -95,6 +95,8 @@ export class ParticleEngine {
   private introAt = -1;
   private pointer = { x: -1e4, y: -1e4, vx: 0, vy: 0, active: false, lastMove: -1e9 };
   private canvasRect: DOMRect;
+  /** The canvas moves with scroll (parallax); its rect is re-read only after a scroll or resize, never every frame. */
+  private rectDirty = true;
 
   private ro: ResizeObserver;
   private io: IntersectionObserver;
@@ -168,6 +170,7 @@ export class ParticleEngine {
     window.addEventListener("pointermove", this.onMove, { passive: true });
     window.addEventListener("pointerdown", this.onDown, { passive: true });
     window.addEventListener("pointerup", this.onUp, { passive: true });
+    window.addEventListener("scroll", this.onScroll, { passive: true });
     window.addEventListener("blur", this.onLeave);
     document.documentElement.addEventListener("pointerleave", this.onLeave);
     document.addEventListener("visibilitychange", this.updateRunning);
@@ -210,6 +213,7 @@ export class ParticleEngine {
     window.removeEventListener("pointermove", this.onMove);
     window.removeEventListener("pointerdown", this.onDown);
     window.removeEventListener("pointerup", this.onUp);
+    window.removeEventListener("scroll", this.onScroll);
     window.removeEventListener("blur", this.onLeave);
     document.documentElement.removeEventListener("pointerleave", this.onLeave);
     document.removeEventListener("visibilitychange", this.updateRunning);
@@ -252,6 +256,9 @@ export class ParticleEngine {
   private onLeave = () => {
     this.pointer.active = false;
   };
+  private onScroll = () => {
+    this.rectDirty = true;
+  };
 
   /* ---------------- layout & sampling ---------------- */
 
@@ -268,6 +275,7 @@ export class ParticleEngine {
     this.canvas.width = Math.round(w * dpr);
     this.canvas.height = Math.round(h * dpr);
     this.canvasRect = this.canvas.getBoundingClientRect();
+    this.rectDirty = false;
     const s = this.slotEl.getBoundingClientRect();
     const slot = { x: s.left - this.canvasRect.left, y: s.top - this.canvasRect.top, w: s.width, h: s.height };
     const slotChanged =
@@ -460,15 +468,18 @@ export class ParticleEngine {
     const t = this.time;
 
     // pointer in canvas space (a gentle autopilot takes over when nobody is moving the mouse)
-    this.canvasRect = this.canvas.getBoundingClientRect();
     const p = this.pointer;
+    let active = p.active && now - p.lastMove < 2500;
+    if (active && this.rectDirty) {
+      this.canvasRect = this.canvas.getBoundingClientRect();
+      this.rectDirty = false;
+    }
     let mx = p.x - this.canvasRect.left;
     let my = p.y - this.canvasRect.top;
     let R = this.coarse ? 95 : 125;
     let F = 3.4;
     let pvx = p.vx;
     let pvy = p.vy;
-    let active = p.active && now - p.lastMove < 2500;
     if (!active && intro >= 1) {
       const s = this.slot;
       const a = t * 0.42;

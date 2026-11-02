@@ -8,11 +8,14 @@ export function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/** Smooth wheel scrolling (skipped for reduced motion). */
+/**
+ * Smooth wheel scrolling (skipped for reduced motion; touch keeps native scrolling).
+ * `lerp` follows the wheel closely — the old fixed 1.15 s `duration` made every scroll trail behind and feel laggy.
+ */
 export function useSmoothScroll() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
-    const lenis = new Lenis({ duration: 1.15, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.4 });
+    const lenis = new Lenis({ lerp: 0.14, smoothWheel: true, wheelMultiplier: 1 });
     lenisInstance = lenis;
     let raf = 0;
     const loop = (time: number) => {
@@ -32,7 +35,7 @@ export function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   const lenis = getLenis();
-  if (lenis) lenis.scrollTo(el, { offset: id === "top" ? 0 : -20, duration: 1.4 });
+  if (lenis) lenis.scrollTo(el, { offset: id === "top" ? 0 : -20, duration: 1.1 });
   else el.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
 }
 

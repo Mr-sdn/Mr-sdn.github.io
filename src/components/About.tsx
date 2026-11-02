@@ -8,12 +8,12 @@ import { GlowCard, Reveal, SectionTitle } from "./ui/primitives";
 import { SocialIcon } from "./ui/icons";
 import { cn, useNow } from "../lib/hooks";
 
+// opacity only: animating a blur filter on every word repainted the whole paragraph on each scroll frame
 function Word({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {
-  const opacity = useTransform(progress, range, [0.13, 1]);
-  const blur = useTransform(progress, range, ["blur(3px)", "blur(0px)"]);
+  const opacity = useTransform(progress, range, [0.15, 1]);
   return (
     <>
-      <motion.span style={{ opacity, filter: blur }}>{children}</motion.span>{" "}
+      <motion.span style={{ opacity }}>{children}</motion.span>{" "}
     </>
   );
 }
