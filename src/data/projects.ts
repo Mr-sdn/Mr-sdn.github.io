@@ -591,3 +591,62 @@ export const projects: Project[] = [
 ];
 
 export const projectById = (id: string | null) => projects.find((p) => p.id === id) ?? null;
+
+/** Shorter entries shown under the main projects ("More work"), so the list reads as a sample, not everything. */
+export type MoreItem = { title: L; text: L; tags: string[]; year: string };
+export const moreWork: MoreItem[] = [
+  {
+    title: l("سایت رزرو خدمات برنامه‌نویسی", "Service-booking website"),
+    text: l(
+      "فروش بستهٔ خدمات و دریافت بیعانه با درگاه پرداخت «آقای پرداخت»؛ سبد رزرو، پیگیری سفارش و پنل مدیریت مشتری‌ها.",
+      "Sells service packages and takes deposits through the Aqaye Pardakht payment gateway, with a booking cart, order tracking and a customer admin panel.",
+    ),
+    tags: ["Flask", "SQLite", "Payment gateway"],
+    year: "2026",
+  },
+  {
+    title: l("آپلودر خودکار دوره‌ها", "Automated course uploader"),
+    text: l(
+      "دوره‌ها را از طریق پنل مدیریت LearnHub دسته‌جمعی وارد سایت می‌کند؛ با مدیریت توکن CSRF و صبر خودکار در برابر محدودیت درخواست.",
+      "Bulk-imports courses through LearnHub's admin panel, handling CSRF tokens and backing off automatically when rate-limited.",
+    ),
+    tags: ["Python", "requests", "BeautifulSoup"],
+    year: "2026",
+  },
+  {
+    title: l("ربات مسابقهٔ بازدید کانال", "Channel view-contest bot"),
+    text: l(
+      "شرکت‌کننده عکس یا ویدیویش را می‌فرستد، کد یکتا می‌گیرد و پستش در کانال منتشر می‌شود؛ بازدید هر پست برای انتخاب برنده ثبت می‌شود. برای بله و تلگرام.",
+      "Entrants send a photo or video, get a unique code and their post goes to the channel; each post's views are recorded to pick the winner. For Bale and Telegram.",
+    ),
+    tags: ["Python", "Bale API", "SQLite"],
+    year: "2026",
+  },
+  {
+    title: l("ربات فروش بلیت قرعه‌کشی", "Raffle-ticket sales bot"),
+    text: l(
+      "خرید چند بلیت، پرداخت با رمزارز یا کارت‌به‌کارت، ارسال رسید و تأیید یا رد آن توسط ادمین، و بخش «بلیت‌های من».",
+      "Buy several tickets, pay by crypto or bank transfer, upload the receipt for admin approval, and see everything under “My tickets”.",
+    ),
+    tags: ["Python", "Pyrogram"],
+    year: "2025",
+  },
+  {
+    title: l("ربات تأیید خودکار عضویت", "Auto-approve join requests"),
+    text: l(
+      "درخواست‌های عضویت کانال و گروه را خودکار تأیید می‌کند؛ سه‌زبانه: فارسی، عربی و انگلیسی.",
+      "Approves channel and group join requests automatically, in Persian, Arabic and English.",
+    ),
+    tags: ["Python", "Pyrogram"],
+    year: "2025",
+  },
+  {
+    title: l("تحلیل دادهٔ فروش", "Sales data analysis"),
+    text: l(
+      "پروژهٔ درس علم داده: پاک‌سازی و تحلیل داده‌های فروش، آزمون‌های آماری و پایپ‌لاین scikit‑learn، با ۳۸ نمودار.",
+      "A data-science course project: cleaning and analysing sales data, statistical tests and scikit‑learn pipelines, with 38 charts.",
+    ),
+    tags: ["pandas", "seaborn", "scikit-learn"],
+    year: "2025",
+  },
+];

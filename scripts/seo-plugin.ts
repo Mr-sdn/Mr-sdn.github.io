@@ -9,7 +9,7 @@
 import type { Plugin } from "vite";
 import type { L } from "../src/i18n/lang";
 import { liveSocials, profile } from "../src/data/profile";
-import { projects } from "../src/data/projects";
+import { moreWork, projects } from "../src/data/projects";
 import { seoText } from "../src/data/seo";
 import { services } from "../src/data/stack";
 import { ui } from "../src/data/ui";
@@ -72,17 +72,13 @@ function jsonLd() {
     "@type": "ItemList",
     "@id": id("work"),
     name: ui.work.eyebrow.fa,
-    itemListElement: projects.map((p, i) => ({
+    itemListElement: [
+      ...projects.map((p) => ({ name: nameOf(p.name), description: p.tagline.fa, keywords: p.stack.join(", "), url: p.links?.[0]?.url })),
+      ...moreWork.map((m) => ({ name: nameOf(m.title), description: m.text.fa, keywords: m.tags.join(", "), url: undefined })),
+    ].map((w, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      item: {
-        "@type": "CreativeWork",
-        name: nameOf(p.name),
-        description: p.tagline.fa,
-        keywords: p.stack.join(", "),
-        creator: { "@id": id("person") },
-        url: p.links?.[0]?.url,
-      },
+      item: { "@type": "CreativeWork", ...w, creator: { "@id": id("person") } },
     })),
   };
   return { "@context": "https://schema.org", "@graph": [website, page, person, work] };
@@ -144,6 +140,9 @@ function staticPage() {
     )
     .join("");
   const serviceList = services.map((s) => `<h3>${fa(s.title)}</h3><p>${fa(s.text)}</p>`).join("");
+  const moreList = moreWork
+    .map((m) => `<li><strong>${fa(m.title)}</strong> — ${fa(m.text)} <span lang="en" dir="ltr">(${esc(m.tags.join(", "))})</span></li>`)
+    .join("");
   return `
       <div class="seo-static">
         <header>
@@ -156,6 +155,10 @@ function staticPage() {
           <section>
             <h2>${fa(ui.work.eyebrow)}</h2>
             <p>${fa(ui.work.intro)}</p>${work}
+            <h3>${fa(ui.moreWork.title)}</h3>
+            <p>${fa(ui.moreWork.intro)}</p>
+            <ul>${moreList}</ul>
+            <p>${fa(ui.moreWork.outro)} ${fa(ui.moreWork.ask)}.</p>
           </section>
           <section>
             <h2>${esc(`${ui.services.title[0].fa} ${ui.services.title[1].fa}`)}</h2>

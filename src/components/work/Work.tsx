@@ -2,12 +2,12 @@ import { useRef, type CSSProperties, type ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { useLang } from "../../i18n/lang";
-import { projects, type Project } from "../../data/projects";
+import { moreWork, projects, type Project } from "../../data/projects";
 import { ui } from "../../data/ui";
 import { AnimatedValue, Chip, GlowCard, Reveal, SectionTitle } from "../ui/primitives";
 import { ProjectMedia } from "./media";
 import { useOverlays } from "../overlays/OverlayContext";
-import { cn, useMediaQuery } from "../../lib/hooks";
+import { cn, scrollToId, useMediaQuery } from "../../lib/hooks";
 
 function ProjectCard({ p, total, stacked }: { p: Project; total: number; stacked: boolean }) {
   const { t, digits, isFa } = useLang();
@@ -150,6 +150,61 @@ export function Work() {
           ),
         )}
       </div>
+
+      <MoreWork />
     </section>
+  );
+}
+
+/** Short list under the cards: the featured projects are a sample, not everything. */
+function MoreWork() {
+  const { t, digits } = useLang();
+  return (
+    <div className="mx-auto max-w-7xl px-5 pt-20 sm:px-8 sm:pt-28">
+      <Reveal>
+        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3 border-b border-white/[0.08] pb-6">
+          <h3 className="font-display text-[clamp(1.9rem,4vw,3rem)] font-bold leading-display tracking-display text-fog-50">{t(ui.moreWork.title)}</h3>
+          <p className="max-w-md text-[15px] leading-body text-fog-400">{t(ui.moreWork.intro)}</p>
+        </div>
+      </Reveal>
+      <ul>
+        {moreWork.map((m, i) => (
+          <Reveal
+            as="li"
+            key={m.title.en}
+            delay={(i % 3) * 0.05}
+            y={14}
+            className="grid gap-x-8 gap-y-2 border-b border-white/[0.06] py-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)_minmax(0,auto)] md:items-baseline"
+          >
+            <p className="font-display text-lg font-semibold text-fog-50 sm:text-xl">{t(m.title)}</p>
+            <p className="text-[14.5px] leading-body text-fog-400">{t(m.text)}</p>
+            <div className="flex flex-wrap items-center gap-1.5 md:justify-end">
+              {m.tags.map((tag) => (
+                <Chip key={tag} className="px-2.5 py-0.5 text-[11px]">
+                  {tag}
+                </Chip>
+              ))}
+              <span className="latin ms-1 font-mono text-[11.5px] text-fog-500">{digits(m.year)}</span>
+            </div>
+          </Reveal>
+        ))}
+      </ul>
+      <Reveal>
+        <p className="mt-8 text-[15px] leading-body text-fog-300">
+          {t(ui.moreWork.outro)}{" "}
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToId("contact");
+            }}
+            className="inline-flex items-center gap-1 font-semibold text-amber hover:text-amber-soft"
+          >
+            {t(ui.moreWork.ask)}
+            <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
+          </a>
+        </p>
+      </Reveal>
+    </div>
   );
 }

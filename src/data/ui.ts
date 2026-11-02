@@ -51,6 +51,15 @@ export const ui = {
     explore: l("جزئیات پروژه", "View details"),
     stackLabel: l("ابزارها", "Stack"),
   },
+  moreWork: {
+    title: l("کارهای دیگر", "More work"),
+    intro: l("بخش کوچکی از پروژه‌های دیگرم، کوتاه و خلاصه:", "A small part of my other projects, in short:"),
+    outro: l(
+      "و پروژه‌های دیگری که این‌جا نیامده‌اند. اگر نمونهٔ کار خاصی می‌خواهی ببینی،",
+      "…and more that aren't listed here. If you'd like to see a specific kind of work,",
+    ),
+    ask: l("پیام بده", "just ask"),
+  },
   caseStudy: {
     back: l("بازگشت", "Back"),
     year: l("سال", "Year"),
