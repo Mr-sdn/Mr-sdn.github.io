@@ -1,8 +1,67 @@
-# سایت شخصی امیرحسین سدنی — SDN
+# SDN — Amirhossein Sadani's portfolio
 
-سایت نمونه‌کار دوزبانه (فارسی راست‌چین / انگلیسی) با React، TypeScript، Tailwind CSS، Motion و یک موتور ذرات WebGL اختصاصی.
+[![Deploy to GitHub Pages](https://github.com/Mr-sdn/Mr-sdn.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/Mr-sdn/Mr-sdn.github.io/actions/workflows/deploy.yml)
 
-## اجرا
+**Live:** https://mr-sdn.github.io · [فارسی](#فارسی)
+
+![SDN — the hero spells the name in WebGL particles](public/og.jpg)
+
+My personal site: a bilingual (Persian RTL / English) portfolio showing a selection of my work — mobile apps, web platforms, Telegram and Bale bots, computer vision and offline AI — and the kinds of projects I take on.
+
+## Highlights
+
+- **WebGL2 particle hero.** A small engine samples the word "SDN" from a canvas into thousands of points that spring into place, part around the pointer, scatter on click and re-form on language switch. It pauses off-screen and while the page scrolls.
+- **Persian first.** Right-to-left layout, Persian digits, Vazirmatn for Persian text, and a language switch that keeps the choice.
+- **Project case studies** at `#/work/<id>`: stacked sticky cards on desktop, galleries, architecture diagrams, and code-drawn mock-ups built from each project's real strings and buttons.
+- **SEO for a client-rendered page.** A Vite plugin writes the meta tags, Open Graph, JSON-LD (Person, WebSite, ProfilePage, services and work), a plain-HTML copy of the content for crawlers, `robots.txt` and `sitemap.xml` — all generated from the same data as the page.
+- **Measured performance.** Scrolling is native; no CSS masks, animated blurs or huge shadows on large areas; videos start only when visible and scrolling has paused. These rules came from wheel-scroll benchmarks and Chrome traces.
+- **Self-hosted fonts and assets.** Nothing loads from third-party CDNs.
+
+## Projects on the site
+
+HelloGap (Flutter + Node.js anonymous chat and video calls) · JADOO (hand tracking → light and sound) · LearnHub (Flask course store with crypto checkout) · Ashpazino (offline Persian cooking app, on Myket) · Bale anonymous chat bot · AI Offline (local LLMs and coding agents) · Telegram bots — plus a "More work" list.
+
+## Stack
+
+React 19 · TypeScript · Vite · Tailwind CSS v4 · Motion · WebGL2 · GitHub Actions / Pages
+
+## Run it
+
+```bash
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # type-check + production build into dist/
+npm run preview   # http://localhost:4173 — judge smoothness here, not in dev mode
+```
+
+Add `?lang=en` to the URL for English.
+
+## Where things live
+
+| What | Where |
+|---|---|
+| Name, contacts, site URL | `src/data/profile.ts` |
+| Projects and the "More work" list | `src/data/projects.ts` |
+| Interface text (both languages) | `src/data/ui.ts` |
+| Services and tools | `src/data/stack.ts` |
+| Page title, description, keywords | `src/data/seo.ts` |
+| Build-time SEO | `scripts/seo-plugin.ts` |
+| Particle engine | `src/components/hero/particleEngine.ts` |
+| Project cards, mock-ups, diagrams | `src/components/work/` |
+| Media build scripts | `scripts/media/` |
+
+Every push to `main` builds the site and deploys it to GitHub Pages (`.github/workflows/deploy.yml`).
+
+---
+
+## فارسی
+
+سایت شخصی من (SDN): نمونه‌کارهای دوزبانه (فارسی راست‌چین و انگلیسی) با React، TypeScript، Tailwind CSS و یک موتور ذرات WebGL اختصاصی.
+پروژه‌هایی که این‌جا هستند فقط چند نمونه از کارهای من هستند.
+
+**آدرس سایت:** https://mr-sdn.github.io
+
+### اجرا
 
 ```bash
 npm install        # فقط بار اول
@@ -11,74 +70,18 @@ npm run build      # ساخت نسخهٔ نهایی در پوشهٔ dist
 npm run preview    # دیدن همان نسخهٔ نهایی → http://localhost:4173
 ```
 
-زبان پیش‌فرض فارسی است؛ با `?lang=en` در آدرس یا دکمهٔ «EN» بالای صفحه انگلیسی می‌شود (انتخاب کاربر ذخیره می‌شود).
+### ویرایش محتوا
 
-## ویرایش محتوا
+همهٔ محتوا در `src/data` است: اسم و راه‌های ارتباط در `profile.ts`، پروژه‌ها و «کارهای دیگر» در `projects.ts`، متن‌های رابط در `ui.ts`، خدمات در `stack.ts` و عنوان و توضیحات گوگل در `seo.ts`.
+با هر push به شاخهٔ `main`، سایت خودکار ساخته و روی GitHub Pages منتشر می‌شود.
 
-| چه چیزی | کجا |
-|---|---|
-| اسم، ایمیل، تلگرام، گیت‌هاب، لینکدین، اینستاگرام، «آمادهٔ همکاری»، آدرس دامنه | `src/data/profile.ts` — لینکی که خالی باشد نمایش داده نمی‌شود |
-| پروژه‌ها (متن‌ها، اعداد، گالری، لینک‌ها) و فهرست «کارهای دیگر» (`moreWork`) | `src/data/projects.ts` |
-| متن‌های رابط (منو، هیرو، درباره، خدمات، تماس) | `src/data/ui.ts` |
-| خدمات («انجام پروژه») و نوار ابزارها | `src/data/stack.ts` |
-| عنوان، توضیحات و کلمات کلیدی گوگل | `src/data/seo.ts` |
-| رنگ‌ها و فونت‌ها | `src/index.css` (بخش `@theme`) |
-| تصاویر و ویدیوها | `public/media/` |
-
-پروژه‌های اصلی: هلوگپ، جادو، LearnHub، آشپزینو، چت ناشناس بله، هوش مصنوعی آفلاین، ربات‌های تلگرام. زیرشان فهرست کوتاه «کارهای دیگر» می‌آید.
-متن‌ها طوری نوشته شده‌اند که این‌ها «نمونه‌ای» از کارها دیده شوند، نه همهٔ کارها؛ موقع افزودن پروژه همین لحن را نگه دارید.
-
-## کارایی و اسکرول
-
-اسکرول با خود مرورگر انجام می‌شود (کتابخانهٔ اسکرول نرم حذف شد، چون روی رشتهٔ اصلی کار می‌کرد و حس کُندی می‌داد).
-این قانون‌ها را نگه دارید؛ هر کدام با اندازه‌گیری موقع اسکرول ثابت شده که لگ می‌سازد:
+### قانون‌های روان بودن اسکرول
 
 - روی بخش‌های بزرگ از `mask-image`، فیلتر `blur` و سایه‌های خیلی پخش استفاده نکنید؛ برای محو کردن لبه‌ها یک لایهٔ گرادیان بگذارید.
-- ویدیوها فقط وقتی بیشتر از یک‌سوم‌شان دیده می‌شود و اسکرول متوقف شده شروع می‌شوند (`LazyVideo`).
+- ویدیوها فقط وقتی شروع می‌شوند که بیشتر از یک‌سوم‌شان دیده شود و اسکرول متوقف شده باشد (`LazyVideo`).
 - ذرات هیرو موقع اسکرول متوقف می‌شوند.
-- کارت‌های روی‌هم‌چیده‌شده `will-change` دارند تا موقع اسکرول دوباره نقاشی نشوند.
+- روان بودن را در نسخهٔ نهایی (`npm run preview`) بسنجید، نه در `npm run dev`.
 
-برای قضاوت دربارهٔ روان بودن، نسخهٔ نهایی را ببینید (`npm run build` و بعد `npm run preview`)، نه `npm run dev` که عمداً کندتر است.
+### تماس
 
-## انتشار روی اینترنت
-
-خروجی `npm run build` (پوشهٔ `dist`) یک سایت استاتیک کامل است و روی هر هاستی کار می‌کند:
-Liara (Static)، ArvanCloud، Netlify، Vercel، GitHub Pages یا یک هاست معمولی — فقط محتوای `dist` را آپلود کنید.
-
-**بعد از گرفتن دامنه:** در `src/data/profile.ts` مقدار `siteUrl` را بنویسید (مثلاً `"https://sdn.ir"`) و دوباره `npm run build` بزنید.
-با این کار لینک canonical، آدرس کامل تصویر پیش‌نمایش (`og:image`) برای تلگرام و شبکه‌ها، `sitemap.xml` و خط Sitemap در `robots.txt` خودکار ساخته می‌شوند.
-بعد سایت را در Google Search Console ثبت کنید و `sitemap.xml` را آنجا بدهید.
-
-## سئو
-
-سایت در مرورگر ساخته می‌شود، برای همین `scripts/seo-plugin.ts` موقع build این‌ها را از روی `src/data` می‌سازد:
-
-- تگ‌های `<head>`: عنوان، توضیحات، Open Graph و داده‌های ساختاریافته (JSON-LD: Person، WebSite، ProfilePage، خدمات و نمونه‌کارها)
-- یک نسخهٔ HTML ساده از کل محتوا داخل `#root` برای موتورهای جست‌وجو و بازدیدکننده‌های بدون جاوااسکریپت (برنامه بلافاصله جایش را می‌گیرد)
-- `robots.txt` و (با `siteUrl`) `sitemap.xml`
-
-## مدیاها از کجا آمده‌اند
-
-- **جادو**: حالت دموی داخلی برنامه (دست‌های شبیه‌سازی‌شده) فریم‌به‌فریم و بدون پنجره رندر شده — `scripts/media/jadoo_capture.py`
-- **هلوگپ و آشپزینو**: تصاویر فروشگاهی و اسکرین‌شات‌های پوشهٔ `store/` هر پروژه
-- **LearnHub، چت ناشناس بله، ربات‌های تلگرام، هوش مصنوعی آفلاین**: نماهایی که با کد کشیده شده‌اند (`src/components/work/media.tsx`)؛ متن دکمه‌ها و پیام‌ها از خود پروژه‌ها برداشته شده
-- تبدیل همه به WebP/MP4 سبک: `scripts/media/build_media.py`
-- تصویر پیش‌نمایش لینک (`public/og.jpg`): با `npm run preview` روشن، `node scripts/media/og.mjs <پوشه‌ای-که-puppeteer-core-دارد> public/og.jpg`
-
-## ساختار کد
-
-```
-src/
-  components/hero/particleEngine.ts   موتور ذرات WebGL2 (کلمهٔ SDN با ذرات نورانی، واکنش به نشانگر)
-  components/work/                    کارت‌های پروژه، نمای هر پروژه، دیاگرام‌ها
-  components/overlays/                صفحهٔ جزئیات پروژه (#/work/<id>) و گالری
-  components/                         ناوبری، نوار ابزارها، درباره، خدمات، تماس، فوتر
-  data/                               همهٔ محتوا (دوزبانه) + متن‌های سئو
-  i18n/lang.tsx                       زبان، جهت صفحه و اعداد فارسی
-scripts/seo-plugin.ts                 تگ‌های سئو، نسخهٔ HTML ساده، robots و sitemap موقع build
-_archive/                             فایل‌هایی که از سایت برداشته شده‌اند (منتشر نمی‌شوند)
-```
-
----
-
-**English:** Bilingual (fa/en) portfolio. `npm install && npm run dev` to run, `npm run build` to produce a static site in `dist/`. All content lives in `src/data/`; set `siteUrl` in `src/data/profile.ts` once the site has a domain.
+تلگرام: [@amirhosseinsdn](https://t.me/amirhosseinsdn) · ایمیل: sdndevelop@gmail.com
