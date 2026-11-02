@@ -17,42 +17,55 @@ npm run preview    # دیدن همان نسخهٔ نهایی → http://localhos
 
 | چه چیزی | کجا |
 |---|---|
-| اسم، ایمیل، تلگرام، گیت‌هاب، لینکدین، اینستاگرام، «آمادهٔ همکاری» | `src/data/profile.ts` — لینکی که خالی باشد نمایش داده نمی‌شود |
-| پنج پروژه (متن‌ها، اعداد، گالری، لینک مایکت) | `src/data/projects.ts` |
-| متن‌های رابط (منو، هیرو، دربارهٔ من، تماس) | `src/data/ui.ts` |
-| مهارت‌ها و نوار ابزارها | `src/data/stack.ts` |
+| اسم، ایمیل، تلگرام، گیت‌هاب، لینکدین، اینستاگرام، «آمادهٔ همکاری»، آدرس دامنه | `src/data/profile.ts` — لینکی که خالی باشد نمایش داده نمی‌شود |
+| پروژه‌ها (متن‌ها، اعداد، گالری، لینک‌ها) | `src/data/projects.ts` |
+| متن‌های رابط (منو، هیرو، درباره، خدمات، تماس) | `src/data/ui.ts` |
+| خدمات («انجام پروژه») و نوار ابزارها | `src/data/stack.ts` |
+| عنوان، توضیحات و کلمات کلیدی گوگل | `src/data/seo.ts` |
 | رنگ‌ها و فونت‌ها | `src/index.css` (بخش `@theme`) |
 | تصاویر و ویدیوها | `public/media/` |
+
+پروژه‌های فعلی: هلوگپ، جادو، LearnHub، آشپزینو، چت ناشناس بله، هوش مصنوعی آفلاین، ربات‌های تلگرام.
 
 ## انتشار روی اینترنت
 
 خروجی `npm run build` (پوشهٔ `dist`) یک سایت استاتیک کامل است و روی هر هاستی کار می‌کند:
 Liara (Static)، ArvanCloud، Netlify، Vercel، GitHub Pages یا یک هاست معمولی — فقط محتوای `dist` را آپلود کنید.
-مسیرها نسبی‌اند، پس در یک زیرپوشه هم درست کار می‌کند.
 
-بعد از انتشار، در `index.html` مقدار `og:image` را به آدرس کامل تغییر دهید (مثلاً `https://your-domain.ir/og.jpg`) تا پیش‌نمایش لینک در تلگرام و شبکه‌ها درست نشان داده شود.
+**بعد از گرفتن دامنه:** در `src/data/profile.ts` مقدار `siteUrl` را بنویسید (مثلاً `"https://sdn.ir"`) و دوباره `npm run build` بزنید.
+با این کار لینک canonical، آدرس کامل تصویر پیش‌نمایش (`og:image`) برای تلگرام و شبکه‌ها، `sitemap.xml` و خط Sitemap در `robots.txt` خودکار ساخته می‌شوند.
+بعد سایت را در Google Search Console ثبت کنید و `sitemap.xml` را آنجا بدهید.
+
+## سئو
+
+سایت در مرورگر ساخته می‌شود، برای همین `scripts/seo-plugin.ts` موقع build این‌ها را از روی `src/data` می‌سازد:
+
+- تگ‌های `<head>`: عنوان، توضیحات، Open Graph و داده‌های ساختاریافته (JSON-LD: Person، WebSite، ProfilePage، خدمات و نمونه‌کارها)
+- یک نسخهٔ HTML ساده از کل محتوا داخل `#root` برای موتورهای جست‌وجو و بازدیدکننده‌های بدون جاوااسکریپت (برنامه بلافاصله جایش را می‌گیرد)
+- `robots.txt` و (با `siteUrl`) `sitemap.xml`
 
 ## مدیاها از کجا آمده‌اند
 
-همهٔ تصاویر و ویدیوها خروجی واقعی خود پروژه‌ها هستند:
-
 - **جادو**: حالت دموی داخلی برنامه (دست‌های شبیه‌سازی‌شده) فریم‌به‌فریم و بدون پنجره رندر شده — `scripts/media/jadoo_capture.py`
-- **یک جمله**: فریم‌ها و نسخهٔ ۷۲۰p از فایل `ai_film.mp4` با ffmpeg
 - **هلوگپ و آشپزینو**: تصاویر فروشگاهی و اسکرین‌شات‌های پوشهٔ `store/` هر پروژه
-- تبدیل همه به WebP/MP4 سبک: `scripts/media/build_media.py` · تصویر پیش‌نمایش لینک: `scripts/media/og.mjs`
+- **LearnHub، چت ناشناس بله، ربات‌های تلگرام، هوش مصنوعی آفلاین**: نماهایی که با کد کشیده شده‌اند (`src/components/work/media.tsx`)؛ متن دکمه‌ها و پیام‌ها از خود پروژه‌ها برداشته شده
+- تبدیل همه به WebP/MP4 سبک: `scripts/media/build_media.py`
+- تصویر پیش‌نمایش لینک (`public/og.jpg`): با `npm run preview` روشن، `node scripts/media/og.mjs <پوشه‌ای-که-puppeteer-core-دارد> public/og.jpg`
 
 ## ساختار کد
 
 ```
 src/
-  components/hero/particleEngine.ts   موتور ذرات WebGL2 (اسم با ذرات نورانی، واکنش به نشانگر، تبدیل بین زبان‌ها)
-  components/work/                    کارت‌های پروژه، رسانهٔ هر پروژه، دیاگرام‌ها
-  components/overlays/                صفحهٔ جزئیات پروژه (#/work/<id>)، گالری، پخش فیلم
-  components/                         ناوبری، نوار ابزارها، درباره، مهارت‌ها، تماس، فوتر
-  data/                               همهٔ محتوا (دوزبانه)
+  components/hero/particleEngine.ts   موتور ذرات WebGL2 (کلمهٔ SDN با ذرات نورانی، واکنش به نشانگر)
+  components/work/                    کارت‌های پروژه، نمای هر پروژه، دیاگرام‌ها
+  components/overlays/                صفحهٔ جزئیات پروژه (#/work/<id>) و گالری
+  components/                         ناوبری، نوار ابزارها، درباره، خدمات، تماس، فوتر
+  data/                               همهٔ محتوا (دوزبانه) + متن‌های سئو
   i18n/lang.tsx                       زبان، جهت صفحه و اعداد فارسی
+scripts/seo-plugin.ts                 تگ‌های سئو، نسخهٔ HTML ساده، robots و sitemap موقع build
+_archive/                             فایل‌هایی که از سایت برداشته شده‌اند (منتشر نمی‌شوند)
 ```
 
 ---
 
-**English:** Bilingual (fa/en) portfolio. `npm install && npm run dev` to run, `npm run build` to produce a static site in `dist/`. All personal data lives in `src/data/`.
+**English:** Bilingual (fa/en) portfolio. `npm install && npm run dev` to run, `npm run build` to produce a static site in `dist/`. All content lives in `src/data/`; set `siteUrl` in `src/data/profile.ts` once the site has a domain.
