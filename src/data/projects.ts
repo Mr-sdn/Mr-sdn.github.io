@@ -517,6 +517,7 @@ export const projects: Project[] = [
       ),
     ],
     gallery: [],
+    links: [{ label: l("کد و دانلود رایگان در گیت‌هاب", "Free download and source on GitHub"), url: "https://github.com/Mr-sdn/ai-offline" }],
   },
 
   // ───────────────────────────────────────────── 07 Telegram bots
